@@ -28,6 +28,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+DEBUG_LOG_DIR = "/var/log/app/django_debug.log"
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
