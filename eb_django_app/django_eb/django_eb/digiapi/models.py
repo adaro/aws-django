@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from djangotoolbox.fields import ListField
+# from djangotoolbox.fields import ListField
 
 
 class Project(models.Model):
@@ -18,7 +18,7 @@ class Project(models.Model):
     client_name = models.CharField(max_length=250, null=True)
     deadline = models.DateTimeField(default=False, null=True)
     project_type = models.CharField(max_length=1, choices=PROJECT_TYPES)
-    tags = ListField()
+    # tags = ListField()
 
 
 
