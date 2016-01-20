@@ -35,14 +35,15 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = [
+    'django', #used for non rel
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_mongodb_engine',
     'djangotoolbox',
+    'django_mongodb_engine',
     'django_eb.digiapi',
 
 ]
