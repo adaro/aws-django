@@ -30,6 +30,10 @@ ALLOWED_HOSTS = []
 
 DEBUG_LOG_DIR = "/var/log/app/django_debug.log"
 
+AUTHENTICATION_BACKENDS = (
+    'permission_backend_nonrel.backends.NonrelPermissionBackend',
+)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_eb.digiapi',
     'djangotoolbox',
+    'permission_backend_nonrel',
+    'django_eb.digiapi',
 
 ]
 
