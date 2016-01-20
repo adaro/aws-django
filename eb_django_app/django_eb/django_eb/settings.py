@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_mongodb_engine',
     'djangotoolbox',
-    'permission_backend_nonrel',
     'django_eb.digiapi',
 
 ]
