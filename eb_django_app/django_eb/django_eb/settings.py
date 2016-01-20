@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djangotoolbox',
     'django_eb.digiapi',
-
+    'djangotoolbox',
 ]
 
 MIDDLEWARE_CLASSES = [
