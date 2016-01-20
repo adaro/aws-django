@@ -16,7 +16,7 @@ class Project(models.Model):
     project_id = models.CharField(max_length=250, null=True)
     project_name = models.CharField(max_length=250, null=True)
     client_name = models.CharField(max_length=250, null=True)
-    deadline = models.DateTimeField('absolute dealine', default=False, null=True)
+    deadline = models.DateTimeField(label='absolute dealine', default=False, null=True)
     project_type = models.CharField(max_length=1, choices=PROJECT_TYPES)
     tags = ListField()
 
