@@ -35,7 +35,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = [
-    # 'django_mongodb_engine',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_eb.digiapi',
-    # 'djangotoolbox',
 ]
 
 MIDDLEWARE_CLASSES = [
