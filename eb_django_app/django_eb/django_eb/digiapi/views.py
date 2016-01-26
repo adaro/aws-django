@@ -1,11 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
 from models import Project
+from django.conf import settings
 
 
 def index(request):
-    ctx = {}
-    return render(request, 'index.html', ctx)
+    return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
 
 
 def set_project_name(request):
