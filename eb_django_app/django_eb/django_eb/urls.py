@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from digiapi.views import set_project_name
+from digiapi.views import set_project_name, index
 from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', set_project_name)
+    url(r'^api/', set_project_name),
+    url(r'^/', index)
+
 ]
 
 admin.autodiscover()
