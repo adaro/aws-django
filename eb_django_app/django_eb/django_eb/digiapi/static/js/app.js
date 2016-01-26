@@ -36,7 +36,7 @@ angular
 
     $routeProvider
       .when('/', {
-        templateUrl: 'views/todo.html',
+        templateUrl: '../../templates/views/todo.html',
         controller: 'TodoCtrl',
         resolve: {
           data: function (DigiService) {
@@ -45,7 +45,7 @@ angular
         }
       })
       .when('/about', {
-        templateUrl: 'views/about.html',
+        templateUrl: '../../templates/views/about.html',
         controller: 'AboutCtrl'
       })
       .otherwise({
