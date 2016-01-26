@@ -5,7 +5,7 @@ from models import Project
 
 def index(request):
     ctx = {}
-    render('index.html', ctx)
+    render(request, 'index.html', ctx)
 
 
 def set_project_name(request):
