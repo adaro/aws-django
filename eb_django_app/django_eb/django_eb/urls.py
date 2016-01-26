@@ -21,9 +21,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', set_project_name),
-    url(r'^/', index)
-
+    url(r'^$', index),
 ]
-
-admin.autodiscover()
-
