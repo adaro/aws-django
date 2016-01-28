@@ -1,53 +1,234 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6">
+<!--<div class="container-fluid">-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-6">-->
 
 
-            <form role="form" ng-submit="addTodo()">
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" ng-model="todo" placeholder="What needs to be done?"
-                               class="form-control input-lg">
-        <span class="input-group-btn">
-          <input type="submit" class="btn btn-lg btn-primary" value="Add">
-        </span>
-                    </div>
-                </div>
-            </form>
-            <div class="todo-panel">
-                <h2>My todos</h2>
-                <!-- Todos input -->
-
-                <hr/>
-                <!-- Todos list -->
-                <div ui-sortable ng-model="todos">
-                    <p class="input-group" ng-repeat="todo in todos track by $index"
-                       style="padding:5px 10px; cursor: move;">
-                        <input type="text" ng-model="todo" class="form-control input-lg">
-        <span class="input-group-btn">
-          <button class="btn btn-lg btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>
-        </span>
-                    </p>
-                </div>
-
-            </div>
-        </div>
+            <!--<form role="form" ng-submit="addTodo()">-->
+                <!--<div class="row">-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" ng-model="todo" placeholder="What needs to be done?"-->
+                               <!--class="form-control input-lg">-->
+                        <!--<span class="input-group-btn">-->
+                          <!--<input type="submit" class="btn btn-lg btn-primary" value="Add">-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
 
 
-        <div class="col-sm-6">
-            <div flow-init
-                 flow-files-submitted="$flow.upload()"
-                 flow-file-success="handle($file, $message, $flow )">
-                <span class="btn btn-lg btn-success" flow-btn>Upload File</span>
-                <div class="drag-drop-area alert alert-info" flow-drop>
-                    Drag And Drop your file here
-                </div>
-                <div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>
-            </div>
-        </div>
+            <!--<div class="todo-panel">-->
+                <!--<h2>My todos</h2>-->
+                <!--&lt;!&ndash; Todos input &ndash;&gt;-->
+
+                <!--<hr/>-->
+                <!--&lt;!&ndash; Todos list &ndash;&gt;-->
+                <!--<div ui-sortable ng-model="todos">-->
+                    <!--<p class="input-group" ng-repeat="todo in todos track by $index"-->
+                       <!--style="padding:5px 10px; cursor: move;">-->
+                        <!--<input type="text" ng-model="todo" class="form-control input-lg">-->
+                        <!--<span class="input-group-btn">-->
+                          <!--<button class="btn btn-lg btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>-->
+                        <!--</span>-->
+                    <!--</p>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="col-sm-6">-->
+            <!--<div flow-init-->
+                 <!--flow-files-submitted="$flow.upload()"-->
+                 <!--flow-file-success="handle($file, $message, $flow )">-->
+                <!--<span class="btn btn-lg btn-success" flow-btn>Upload File</span>-->
+
+                <!--<div class="drag-drop-area alert alert-info" flow-drop>-->
+                    <!--Drag And Drop your file here-->
+                <!--</div>-->
+                <!--<div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;TODO: we'll need to setup an s3 bucket to dump the images in&ndash;&gt;-->
+
+
+
+ <div class="demo-blog__posts mdl-grid">
+  <div class="mdl-card coffee-pic mdl-cell mdl-cell--8-col">
+    <div class="mdl-card__media mdl-color-text--grey-50">
+      <!--TODO: seperate these functional elements into directives-->
+
+
 
     </div>
+
+
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div id="todo-panel" class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
+
+    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="addTodo()">
+      <i class="material-icons mdl-color-text--white" role="presentation">add</i>
+      <span class="visuallyhidden">add</span>
+    </button>
+
+    <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600">
+
+        <!--<form role="form" ng-submit="addTodo()">-->
+            <!--<div class="row">-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" ng-model="todo" placeholder="What needs to be done?"-->
+                           <!--class="form-control input-lg">-->
+                    <!--<span class="input-group-btn">-->
+                      <!--<input type="submit" class="btn btn-lg btn-primary" value="Add">-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+
+        <!-- Simple Textfield -->
+        <form role="form">
+          <div class="mdl-textfield mdl-js-textfield todo-input">
+            <input class="mdl-textfield__input" ng-model="todo" type="text" id="sample1">
+            <label class="mdl-textfield__label todo-label" for="sample1">What needs to be done?</label>
+          </div>
+        </form>
+
+
+
+        <hr/>
+        <!-- Todos list -->
+        <!--<div ui-sortable ng-model="todos">-->
+            <!--<p class="input-group" ng-repeat="todo in todos track by $index"-->
+               <!--style="padding:5px 10px; cursor: move;">-->
+                <!--<input type="text" ng-model="todo" class="form-control input-lg">-->
+                <!--<span class="input-group-btn">-->
+                  <!--<button class="btn btn-lg btn-danger" ng-click="removeTodo($index)" aria-label="Remove">Remove</button>-->
+                <!--</span>-->
+            <!--</p>-->
+        <!--</div>-->
+
+            <div ui-sortable ng-model="todos" class="todo-card-wrapper" style="padding:5px 10px; cursor: move; width: 100%;">
+                <div class="mdl-card mdl-shadow--4dp todo-card"  ng-repeat="todo in todos track by $index" >
+                  <div class="mdl-card__title" ng-bind="todo"></div>
+                  <div class="mdl-card__actions">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" ng-click="removeTodo($index)" aria-label="Remove">Remove</button>
+                  </div>
+                </div>
+            </div>
+
+
+
+
+    </div>
+    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
+      <div>
+        <strong>The Newist</strong>
+      </div>
+      <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menubtn">
+        <li class="mdl-menu__item">About</li>
+        <li class="mdl-menu__item">Message</li>
+        <li class="mdl-menu__item">Favorite</li>
+        <li class="mdl-menu__item">Search</li>
+      </ul>
+      <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">more_vert</i>
+        <span class="visuallyhidden">show menu</span>
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
+
+
+    <!--<div class="mdl-card__media mdl-color-text--grey-50">-->
+      <!--<h3><a href="entry.html">On the road again</a></h3>-->
+    <!--</div>-->
+    <!--<div class="mdl-color-text--grey-600 mdl-card__supporting-text">-->
+      <!--Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.-->
+    <!--</div>-->
+    <a data-pin-do="embedBoard" data-pin-board-width="900" data-pin-scale-height="120" data-pin-scale-width="115" href="https://www.pinterest.com/pinterest/official-news/"></a>
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+
+<!--<iframe src="http://www.w3schools.com"></iframe>-->
+
+
+    <!--<div class="col-sm-6">-->
+        <!--<div flow-init-->
+             <!--flow-files-submitted="$flow.upload()"-->
+             <!--flow-file-success="handle($file, $message, $flow )">-->
+            <!--<span class="btn btn-lg btn-success" flow-btn>Upload File</span>-->
+
+            <!--<div class="drag-drop-area alert alert-info" flow-drop>-->
+                <!--Drag And Drop your file here-->
+            <!--</div>-->
+            <!--<div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+  </div>
+
+
+  <div class="mdl-card amazing mdl-cell mdl-cell--12-col">
+    <div class="mdl-card__title mdl-color-text--grey-50">
+      <h3 class="quote"><a href="entry.html">I couldn’t take any pictures but this was an amazing thing…</a></h3>
+    </div>
+    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+      Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+    </div>
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+  </div>
+  <div class="mdl-card shopping mdl-cell mdl-cell--12-col">
+    <div class="mdl-card__media mdl-color-text--grey-50">
+      <h3><a href="entry.html">Shopping</a></h3>
+    </div>
+    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+      Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+    </div>
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+  </div>
+  <nav class="demo-nav mdl-cell mdl-cell--12-col">
+    <div class="section-spacer"></div>
+    <a href="entry.html" class="demo-nav__button" title="show more">
+      More
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">arrow_forward</i>
+      </button>
+    </a>
+  </nav>
 </div>
-
-<!--TODO: we'll need to setup an s3 bucket to dump the images in-->
-

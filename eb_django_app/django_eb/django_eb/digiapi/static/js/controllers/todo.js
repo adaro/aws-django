@@ -15,8 +15,10 @@ angular.module('digiBoardApp')
 //    $scope.todos = [];
 
     $scope.addTodo = function () {
+      console.log("heeere!")
       $scope.todos.push($scope.todo);
       $scope.todo = '';
+      angular.element(document).find('.todo-input').removeClass('is-dirty')
     };
 
     $scope.removeTodo = function (index) {
