@@ -75,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_eb.wsgi.application'
 
-
+LOGIN_ERROR_MSG = 'The username and password did not match. Please try again.'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 

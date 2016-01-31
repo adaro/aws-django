@@ -6,24 +6,28 @@
         .module('digiBoardApp')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$scope', 'DigiService', 'UserService', 'localStorageService', '$state'];
+    LoginCtrl.$inject = ['$scope', 'DigiService', 'UserService','localStorageService', '$state'];
 
     function LoginCtrl($scope, DigiService, UserService, localStorageService, $state) {
 
         var vm = this
         vm.user = UserService
         vm.login = login
+        vm.logout = logout;
+        vm.login_error = DigiService.login_error
+
+        var token = localStorageService.get('token');
+        if (token) {
+            $state.go('landing')
+        }
 
         function login() {
             DigiService.login()
-//            var token = localStorageService.get('token');
-//            if (!token) {
-//                DigiService.login()
-//            }
-//            else {
-//                console.log("Authenticated!")
-//                $state.go('landing')
-//            }
+        }
+
+        function logout() {
+
+            localStorageService.remove('token')
         }
     }
 })();
