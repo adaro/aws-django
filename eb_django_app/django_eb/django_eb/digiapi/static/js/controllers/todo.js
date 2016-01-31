@@ -1,34 +1,46 @@
-'use strict';
+/* jshint devel:true */
+(function() {
+    'use strict';
 
-angular.module('digiBoardApp')
-  .controller('TodoCtrl', function ($scope, localStorageService, data) {
-    var todosInStore = localStorageService.get('todos');
+    angular
+        .module('digiBoardApp')
+        .controller('TodoCtrl', TodoCtrl);
 
-    $scope.todos = todosInStore || [];
-    $scope.photos = []
+    TodoCtrl.$inject = ['$scope', 'localStorageService', 'DigiService'];
 
-    $scope.$watch('todos', function () {
-      localStorageService.add('todos', $scope.todos);
-    }, true);
+    function TodoCtrl($scope, localStorageService, DigiService) {
+        var vm = this
+        var todosInStore = localStorageService.get('todos');
+        vm.todos = todosInStore || [];
+        vm.photos = DigiService.photos;
+        vm.addTodo = addTodo;
+        vm.removeTodo = removeTodo;
+        vm.handle = handle;
+        vm.logout = logout;
 
-    // Uncomment if you are disabling persistence
-//    $scope.todos = [];
+        $scope.$watch('vm.todos', function () {
+          localStorageService.add('todos', vm.todos);
+        }, true);
 
-    $scope.addTodo = function () {
-      console.log("heeere!")
-      $scope.todos.push($scope.todo);
-      $scope.todo = '';
-      angular.element(document).find('.todo-input').removeClass('is-dirty')
-    };
+        function addTodo() {
+          vm.todos.push(vm.todo);
+          vm.todo = '';
+          angular.element(document).find('.todo-input').removeClass('is-dirty')
+        };
 
-    $scope.removeTodo = function (index) {
-      $scope.todos.splice(index, 1);
-    };
+        function removeTodo(index) {
+          vm.todos.splice(index, 1);
+        };
 
-    $scope.handle = function($file, $message, $flow ) {
-        console.log($file.file)
-        $scope.photos.push( $file )
+        function handle($file, $message, $flow ) {
+            vm.photos.push( $file )
+
+        }
+
+        function logout() {
+            localStorageService.remove('token')
+        }
+
 
     }
-
-  });
+})();
