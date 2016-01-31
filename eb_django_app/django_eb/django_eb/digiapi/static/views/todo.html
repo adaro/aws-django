@@ -2,21 +2,21 @@
 
 
 
- <div class="demo-blog__posts mdl-grid">
-     <div class="mdl-card coffee-pic mdl-cell mdl-cell--8-col">
-        <div class="mdl-card__media mdl-color-text--grey-50">
-          <!--TODO: seperate these functional elements into directives-->
-        </div>
+<div class="demo-blog__posts mdl-grid">
+ <div class="mdl-card coffee-pic mdl-cell mdl-cell--8-col">
+    <div class="mdl-card__media mdl-color-text--grey-50">
+      <!--TODO: seperate these functional elements into directives-->
+    </div>
 
 
-        <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-          <div class="minilogo"></div>
-          <div>
-            <strong>The Newist</strong>
-            <span>2 days ago</span>
-          </div>
-        </div>
-     </div>
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+ </div>
 
 
 
@@ -34,7 +34,7 @@
         <!-- Simple Textfield -->
         <form role="form">
           <div class="mdl-textfield mdl-js-textfield todo-input">
-            <input class="mdl-textfield__input" ng-model="vm.todo" type="text" id="sample1">
+            <input class="mdl-textfield__input" ng-model="vm.todo" ng-keyup="vm.keyup($event)" type="text" id="sample1">
             <label class="mdl-textfield__label todo-label" for="sample1">What needs to be done?</label>
           </div>
         </form>

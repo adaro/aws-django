@@ -17,12 +17,18 @@
       ])
       .config(config);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider'];
 
-    function config($stateProvider, $urlRouterProvider, $httpProvider) {
-
+    function config($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        $locationProvider.html5Mode(
+            {
+              enabled: true,
+              requireBase: false
+            }
+        );
+
 
         $urlRouterProvider.otherwise('/');
 

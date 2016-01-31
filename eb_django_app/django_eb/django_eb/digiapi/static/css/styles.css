@@ -613,4 +613,6 @@ body .demo-blog {
     width: 25%;
 }
 
-
+*:focus {
+    outline: none;
+}

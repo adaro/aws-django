@@ -15,12 +15,7 @@
         login: function() {
             $http.post('/api/login', { username: UserService.username, password: UserService.password })
                 .success(function (response) {
-                    if ('error' in response) {
-                        $state.go('login')
-                    }
-                    else {
-                        $state.go('landing')
-                    }
+                    $state.go('landing')
 
                 })
                 .error(function(response) {

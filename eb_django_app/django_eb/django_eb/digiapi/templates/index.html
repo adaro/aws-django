@@ -64,6 +64,7 @@
     <div class="demo-blog mdl-layout mdl-js-layout has-drawer is-upgraded">
       <main class="mdl-layout__content">
 
+
           <div ui-view=""></div>
 
 
@@ -117,8 +118,9 @@
     <script src="/static/js/app.js"></script>
     <script src="/static/js/controllers/todo.js"></script>
     <script src="/static/js/controllers/login.js"></script>
-    <script src="/static/js/services/services.api.js"></script>
-  <script src="/static/js/services/services.user.js"></script>
+    <script src="/static/js/services/service.api.js"></script>
+    <script src="/static/js/services/service.user.js"></script>
+    <!--<script src="/static/js/directives/directive.utils.js"></script>-->
 
 
   </body>
@@ -150,7 +152,8 @@
     <!--Global static_url variable used for routing. Injected from views.py /index -->
     <script>
        var static_url = '{{STATIC_URL}}'
-       var token = '{{token}}'
+       var token = '{{TOKEN}}'
+       var error = '{{AUTH_ERROR}}'
     </script>
 </html>
 

@@ -15,14 +15,15 @@
         vm.login = login
 
         function login() {
-            var token = localStorageService.get('token');
-            if (!token) {
-                DigiService.login()
-            }
-            else {
-                console.log("Authenticated!")
-                $state.go('landing')
-            }
+            DigiService.login()
+//            var token = localStorageService.get('token');
+//            if (!token) {
+//                DigiService.login()
+//            }
+//            else {
+//                console.log("Authenticated!")
+//                $state.go('landing')
+//            }
         }
     }
 })();

@@ -14,6 +14,7 @@
         vm.todos = todosInStore || [];
         vm.photos = DigiService.photos;
         vm.addTodo = addTodo;
+        vm.keyup = keyup
         vm.removeTodo = removeTodo;
         vm.handle = handle;
         vm.logout = logout;
@@ -23,10 +24,20 @@
         }, true);
 
         function addTodo() {
-          vm.todos.push(vm.todo);
-          vm.todo = '';
-          angular.element(document).find('.todo-input').removeClass('is-dirty')
+          if (vm.todo) {
+              console.log(vm.todo)
+              vm.todos.push(vm.todo);
+              vm.todo = '';
+              angular.element(document).find('.todo-input').removeClass('is-dirty')
+          }
+
         };
+
+        function keyup(event) {
+            if (event.keyCode == 13) {
+                addTodo()
+            }
+        }
 
         function removeTodo(index) {
           vm.todos.splice(index, 1);
@@ -40,6 +51,7 @@
         function logout() {
             localStorageService.remove('token')
         }
+
 
 
     }

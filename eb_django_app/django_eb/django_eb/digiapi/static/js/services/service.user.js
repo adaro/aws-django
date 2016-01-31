@@ -11,7 +11,7 @@
     function UserService() {
 
     var user = {
-        email: "",
+        username: "",
         password: ""
     };
 
