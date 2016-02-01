@@ -12,6 +12,7 @@
         var vm = this
         var todosInStore = localStorageService.get('todos');
         vm.todos = todosInStore || [];
+        vm.project = {poster:'/static/img/coffee.jpg'}
         vm.photos = DigiService.photos;
         vm.addTodo = addTodo;
         vm.keyup = keyup

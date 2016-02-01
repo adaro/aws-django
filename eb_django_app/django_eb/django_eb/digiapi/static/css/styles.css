@@ -58,6 +58,7 @@ body .demo-blog {
   -webkit-overflow-scrolling: touch;
 }
 .demo-blog .mdl-card {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -103,10 +104,7 @@ body .demo-blog {
           align-items: flex-end;
   cursor: pointer;
 }
-.demo-blog .mdl-card__media a,
-.demo-blog .mdl-card__title a {
-  color: inherit;
-}
+
 .demo-blog .mdl-card__supporting-text {
   width: 100%;
   padding: 16px;
@@ -195,6 +193,7 @@ body .demo-blog {
           flex-direction: column;
 }
 .demo-blog.is-small-screen .demo-blog__posts > .mdl-card.coffee-pic {
+  overflow: visible;
   -webkit-box-ordinal-group: 1;
   -webkit-order: 0;
       -ms-flex-order: 0;
@@ -206,9 +205,7 @@ body .demo-blog {
       -ms-flex-order: -1;
           order: -1;
 }
-.demo-blog .coffee-pic .mdl-card__media {
-  background-image: url('/static/img/coffee.jpg');
-}
+
 .demo-blog .something-else .mdl-card__media {
   display: -webkit-box;
   display: -webkit-flex;
@@ -615,4 +612,26 @@ body .demo-blog {
 
 *:focus {
     outline: none;
+}
+
+.demo-card-square.mdl-card {
+  width: 120px;
+  height: 120px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+
+.demo-card-square > .mdl-card__title .mdl-button {
+    color: #666;
+}
+
+.add-project {
+    position: absolute;
+    right: 10px;
+    top: -30px;
+}
+
+.override-color {
+    background-color: white;
 }
