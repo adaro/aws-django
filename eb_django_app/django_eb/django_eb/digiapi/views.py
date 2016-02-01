@@ -1,5 +1,6 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 from models import Project
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -8,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user
 from django.shortcuts import redirect
 import json
+from forms import ProjectForm
 
 @csrf_exempt
 def login(request):
@@ -39,3 +41,25 @@ def index(request):
         return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
+
+
+#
+# @csrf_exempt
+# def saveImage(request):
+#     up_file = request.FILES['image']
+#     destination = open('/tmp/' + up_file.name, 'wb+')
+#     for chunk in up_file.chunks():
+#         destination.write(chunk)
+#     destination.close()
+#     # return any response you want after this
+
+@csrf_exempt
+def upload(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            m = Project.objects.all()[0]
+            m.poster = form.cleaned_data['poster']
+            m.save()
+            return HttpResponse('image upload success')
+    return HttpResponseForbidden('allowed only via POST')
