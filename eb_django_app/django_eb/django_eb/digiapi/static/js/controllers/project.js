@@ -13,13 +13,18 @@
         $scope.project = {poster:'/static/img/coffee.jpg'};
         $scope.addProject = addProject
         $scope.showLabel = showLabel;
+        $scope.createStyle = createStyle
         $scope.show_form = false;
         $scope.datepicked = false;
 
-          angular.element('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-          });
+        DigiService.get_projects().then(function(response) {
+            $scope.projects = response.data;
+        })
+
+        angular.element('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
 
         function addProject() {
             $scope.show_form = true;
@@ -29,6 +34,11 @@
 
         function showLabel() {
             angular.element('.date-label').addClass('remove-label')
+        }
+
+        function createStyle(project) {
+            console.log("url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") bottom right 15% no-repeat #40c4ff")
+            return {"background": "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") bottom right 15% no-repeat #40c4ff"}
         }
     }
 })();

@@ -10,6 +10,7 @@ from auth import authenticate_digi_user
 from django.shortcuts import redirect
 import json
 from forms import ProjectForm
+from django.core import serializers
 
 @csrf_exempt
 def login(request):
@@ -42,14 +43,15 @@ def index(request):
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
 
+def get_projects(request):
+    data = serializers.serialize('json', Project.objects.all())
+    return HttpResponse(data)
 
 @csrf_exempt
 def create_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            print form.cleaned_data
-            #TODO: needs a fixin' use get or create project
             m = Project()
             m.project_id = form.cleaned_data['projectid']
             m.project_name = form.cleaned_data['projectname']

@@ -580,7 +580,7 @@ body .demo-blog {
 }
 
 .todo-label {
-    font-size: 12px;
+    font-size: 12px !important;
 }
 
 .todo-card-wrapper {
@@ -594,6 +594,11 @@ body .demo-blog {
     height: 25%;
     min-height: inherit !important;
 }
+
+.todo-card:hover {
+    background-color: rgba(255,255,255, .5);
+    transition: background-color 0.2s ease-in-out;
+    }
 
 .deckgrid[deckgrid]::before {
     /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
@@ -617,13 +622,23 @@ body .demo-blog {
 .demo-card-square.mdl-card {
   width: 120px;
   height: 120px;
+  padding: 5px 5px 5px 5px;
+  float: left;
 }
+.demo-card-square.mdl-card:hover {
+    background-color: rgba(255,255,255, .1);
+    transition: background-color 0.2s ease-in-out;
+}
+
 .demo-card-square > .mdl-card__title {
   color: #fff;
+    word-wrap: break-word;
+    font-size: 12px;
 }
 
 .demo-card-square > .mdl-card__title .mdl-button {
     color: #666;
+
 }
 
 .add-project {
@@ -688,4 +703,20 @@ body .demo-blog {
 .create-project-form {
   top: 20px;
   width: 512px;
+}
+
+.close-create-project-form {
+
+    position: relative;
+    top: 22px;
+    z-index: 2;
+    float: right;
+    margin-left: -34px;
+
+}
+
+.projects-wrapper {
+    width: 100%;
+    overflow-y:scroll;
+    max-height: 400px;
 }

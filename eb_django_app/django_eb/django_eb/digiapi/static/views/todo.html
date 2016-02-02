@@ -6,34 +6,31 @@
  <div class="mdl-card project-view mdl-cell mdl-cell--8-col">
     <div ng-controller="ProjectCtrl" class="mdl-card__media mdl-color-text--grey-50 override-color">
       <!--TODO: seperate these functional elements into directives-->
-        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent ng-click-active add-project" ng-click="addProject()">
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent ng-click-active add-project" ng-click="show_form = true;">
           <i class="material-icons mdl-color-text--white" role="presentation">add</i>
           <span class="visuallyhidden">add</span>
         </button>
-        <div ng-hide="show_form" class="demo-card-square mdl-card mdl-shadow--2dp"  ng-repeat="project in projects">
-            <!--TODO: need to inject project image into ng-class url-->
-          <div class="mdl-card__title mdl-card--expand" ng-style="{'background':'url({{project.poster}}) bottom right 15% no-repeat #46B6AC'}">
-            <h2 class="mdl-card__title-text">Project Name</h2>
-          </div>
-          <div class="mdl-card__supporting-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Aenan convallis.
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Update
-            </a>
-          </div>
+        <div ng-hide="show_form" class="projects-wrapper">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp" ng-repeat="project in projects">
+                <!--TODO: need to inject project image into ng-class url-->
+              <div class="mdl-card__title mdl-card--expand" ng-style="createStyle(project)">
+                <h2 class="mdl-card__title-text" ng-bind="project.fields.project_name"></h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aenan convallis.
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  Update
+                </a>
+              </div>
+            </div>
         </div>
         <div ng-show="show_form">
-            <!--<form action="api/upload/" method="post" enctype="multipart/form-data">-->
-                <!--<p>-->
-                    <!--<input id="id_image" type="file" class="" name="poster">-->
-                <!--</p>-->
-                <!--<input type="submit" value="Submit" />-->
-            <!--</form>-->
-
-
+            <button class="mdl-button mdl-js-button mdl-button--icon close-create-project-form" ng-click="show_form = false;">
+              <i class="material-icons">close</i>
+            </button>
 
             <div class="mdl-card mdl-shadow--6dp create-project-form">
                 <div class="mdl-card__title mdl-color--accent mdl-color-text--white">
@@ -97,8 +94,6 @@
  </div>
 
 
-
-
   <div id="todo-panel" class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
 
     <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="vm.addTodo()">
@@ -107,17 +102,16 @@
     </button>
 
     <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600">
-
-
         <!-- Simple Textfield -->
         <form role="form">
           <div class="mdl-textfield mdl-js-textfield todo-input">
-            <input class="mdl-textfield__input" ng-model="vm.todo" ng-keyup="vm.keyup($event)" type="text" id="sample1">
-            <label class="mdl-textfield__label todo-label" for="sample1">What needs to be done?</label>
+        <div class="input-field col s6">
+            <input name="projectname" id="projectname" type="text" class="validate" ng-model="vm.todo" ng-keyup="vm.keyup($event)">
+            <!--<input class="mdl-textfield__input" ng-model="vm.todo" ng-keyup="vm.keyup($event)" type="text" id="sample1">-->
+            <label class="mdl-textfield__label todo-label" for="projectname">What needs to be done?</label>                        </div>
+
           </div>
         </form>
-
-
 
         <hr/>
         <!-- Todos list -->
@@ -148,19 +142,7 @@
     </div>
   </div>
 
-
-
-
-
   <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
-
-
-    <!--<div class="mdl-card__media mdl-color-text--grey-50">-->
-      <!--<h3><a href="entry.html">On the road again</a></h3>-->
-    <!--</div>-->
-    <!--<div class="mdl-color-text--grey-600 mdl-card__supporting-text">-->
-      <!--Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.-->
-    <!--</div>-->
       <a data-pin-do="embedUser" data-pin-board-width="2000" data-pin-scale-height="600" data-pin-scale-width="60" href="https://www.pinterest.com/Seniman_callig"></a>    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
       <div class="minilogo"></div>
       <div>
@@ -170,8 +152,6 @@
     </div>
 
 <!--<iframe src="http://www.w3schools.com"></iframe>-->
-
-
     <!--<div class="col-sm-6">-->
         <!--<div flow-init-->
              <!--flow-files-submitted="$flow.upload()"-->

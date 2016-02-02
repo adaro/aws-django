@@ -12,6 +12,7 @@
 
     var digiObj = {
         photos: [],
+        get_projects: get_projects,
         login_error: "",
         login: function() {
                 $http.post('/api/login', { username: UserService.username, password: UserService.password })
@@ -35,6 +36,20 @@
     function set_error(error) {
         digiObj.login_error = error;
     }
+
+    function get_projects() {
+        return $http.get('/api/projects')
+            .then(get_projects_complete)
+            .catch(get_projects_failed);
+            }
+
+        function get_projects_complete(response) {
+            return response;
+        }
+
+        function get_projects_failed(error) {
+            logger.error('XHR Failed for getAvengers.' + error.data);
+        }
 
 
     return digiObj
