@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 from models import Project
 from django.conf import settings
@@ -43,23 +43,22 @@ def index(request):
         return redirect('%s?next=%s' % ("api/login", request.path))
 
 
-#
-# @csrf_exempt
-# def saveImage(request):
-#     up_file = request.FILES['image']
-#     destination = open('/tmp/' + up_file.name, 'wb+')
-#     for chunk in up_file.chunks():
-#         destination.write(chunk)
-#     destination.close()
-#     # return any response you want after this
-
 @csrf_exempt
-def upload(request):
+def create_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            m = Project.objects.all()[0]
+            print form.cleaned_data
+            #TODO: needs a fixin' use get or create project
+            m = Project()
+            m.project_id = form.cleaned_data['projectid']
+            m.project_name = form.cleaned_data['projectname']
+            m.client_name = form.cleaned_data['clientname']
+            m.deadline = form.cleaned_data['deadline']
+            #TODO: needs a fixin'
+            m.project_type = 1
             m.poster = form.cleaned_data['poster']
             m.save()
-            return HttpResponse('image upload success')
-    return HttpResponseForbidden('allowed only via POST')
+            #TODO: dont redirect here send through ajax
+            return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
+        print form.errors

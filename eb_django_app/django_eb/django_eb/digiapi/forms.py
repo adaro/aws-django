@@ -8,10 +8,10 @@ class ProjectForm(forms.Form):
         ('S', 'Syleshoot'),
         ('A', 'Addressing'),
     )
-    #
-    # project_name = forms.CharField(label='Project name')
-    # project_type = forms.ChoiceField(choices=PROJECT_TYPES)
-    # client_name = forms.CharField(label='Client name')
-    # deadline = forms.DateField()
-    poster = forms.ImageField()
+    projectid = forms.CharField(label='Project id', required=False)
+    projectname = forms.CharField(label='Project name', required=False)
+    projecttype = forms.ChoiceField(choices=PROJECT_TYPES, required=False)
+    clientname = forms.CharField(label='Client name', required=False)
+    deadline = forms.DateField(required=False)
+    poster = forms.ImageField(required=False)
 

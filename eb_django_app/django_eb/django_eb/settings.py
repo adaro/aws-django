@@ -136,8 +136,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+PROJECT_TYPES = (
+    ('I', 'Invitation'),
+    ('L', 'Logo'),
+    ('D', 'Dayof'),
+    ('S', 'Syleshoot'),
+    ('A', 'Addressing'),
+)
 
-IMG_PATH = '/static/img'
+IMG_URL = '/static/img'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

@@ -10,7 +10,7 @@
           <i class="material-icons mdl-color-text--white" role="presentation">add</i>
           <span class="visuallyhidden">add</span>
         </button>
-        <div ng-hide="show_form" class="demo-card-square mdl-card mdl-shadow--2dp" ng-repeat="project in projects">
+        <div ng-hide="show_form" class="demo-card-square mdl-card mdl-shadow--2dp"  ng-repeat="project in projects">
             <!--TODO: need to inject project image into ng-class url-->
           <div class="mdl-card__title mdl-card--expand" ng-style="{'background':'url({{project.poster}}) bottom right 15% no-repeat #46B6AC'}">
             <h2 class="mdl-card__title-text">Project Name</h2>
@@ -26,12 +26,63 @@
           </div>
         </div>
         <div ng-show="show_form">
-            <form action="api/upload/" method="post" enctype="multipart/form-data">
-                <p>
-                    <input id="id_image" type="file" class="" name="poster">
-                </p>
-                <input type="submit" value="Submit" />
-            </form>
+            <!--<form action="api/upload/" method="post" enctype="multipart/form-data">-->
+                <!--<p>-->
+                    <!--<input id="id_image" type="file" class="" name="poster">-->
+                <!--</p>-->
+                <!--<input type="submit" value="Submit" />-->
+            <!--</form>-->
+
+
+
+            <div class="mdl-card mdl-shadow--6dp create-project-form">
+                <div class="mdl-card__title mdl-color--accent mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">Create Project</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+
+
+                  <div class="row">
+                    <form action="api/create_project/" method="post" enctype="multipart/form-data" class="col s12">
+                      <div class="row">
+                        <div class="input-field col s6">
+                          <input name="projectid" id="projectid" type="text" class="validate">
+                          <label for="projectid">Project ID</label>
+                        </div>
+                        <div class="input-field col s6">
+                          <input name="projectname" id="projectname" type="text" class="validate">
+                          <label for="projectname">Project Name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input name="clientname" id="clientname" type="text" class="validate">
+                          <label for="clientname">Client Name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="mdl-textfield mdl-js-textfield">
+                                <input ng-click='showLabel()' name="duedate" class="datepicker" type="date" id="duedate" />
+                                <label class="mdl-textfield__label date-label" for="duedate">Due Date</label>
+                            </div>
+                      </div>
+
+                    <div class="file-field input-field">
+                      <div class="btn">
+                        <span>Project Img</span>
+                        <input type="file" name="poster">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                      </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Create Project</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
 
