@@ -144,6 +144,18 @@ PROJECT_TYPES = (
     ('A', 'Addressing'),
 )
 
+STATUS_TYPES = (
+    ('P', 'In Progress'),
+    ('C', 'Complete'),
+    ('R', 'In Review'),
+)
+
+PRIORITY_TYPES = (
+    ('L', 'Low'),
+    ('M', 'Med'),
+    ('H', 'High'),
+)
+
 IMG_URL = '/static/img'
 
 # Static files (CSS, JavaScript, Images)

@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
-from models import Project
+from models import Project, Todo
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from utils import generate_token
@@ -44,6 +44,10 @@ def index(request):
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
 
+def get_todos(request, project_id):
+    print Todo.objects.filter(pk=project_id)
+    data = serializers.serialize('json', Todo.objects.filter(pk=project_id))
+    return HttpResponse(data)
 
 def get_projects(request):
     data = serializers.serialize('json', Project.objects.all())

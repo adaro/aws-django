@@ -6,9 +6,9 @@
         .module('digiBoardApp')
         .controller('ProjectCtrl', ProjectCtrl);
 
-    ProjectCtrl.$inject = ['$scope', 'DigiService', '$state'];
+    ProjectCtrl.$inject = ['$scope', 'DigiService', '$state', '$rootScope'];
 
-    function ProjectCtrl($scope, DigiService, $state) {
+    function ProjectCtrl($scope, DigiService, $state, $rootScope) {
 
 
 
@@ -19,10 +19,12 @@
         $scope.showLabel = showLabel;
         $scope.createStyle = createStyle;
         $scope.selectProject = selectProject;
+        $scope.loadTodos = loadTodos;
         $scope.select_project = true;
         $scope.show_form = false;
         $scope.datepicked = false;
         $scope.project_view = false;
+
 
 
 
@@ -36,10 +38,22 @@
         });
 
         function selectProject(project, indx) {
+
             DigiService.get_project(project.pk).then(function(response) {
+
                 $scope.project = response.data;
                 $scope.project_view = true;
             })
+
+            $scope.loadTodos(project)
+        }
+
+        function loadTodos(project) {
+            DigiService.get_todos(project.pk).then(function(response) {
+                DigiService.todos = response.data;
+                $rootScope.todos = response.data;
+            })
+
         }
 
         function addProject() {
@@ -55,7 +69,7 @@
         function createStyle(project) {
             return {
                 "background":
-                    "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") bottom right 15% no-repeat #40c4ff"
+                    "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") top right 15% no-repeat "
             }
         }
 

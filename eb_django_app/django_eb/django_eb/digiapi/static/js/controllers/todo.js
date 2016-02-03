@@ -6,12 +6,12 @@
         .module('digiBoardApp')
         .controller('TodoCtrl', TodoCtrl);
 
-    TodoCtrl.$inject = ['$scope', 'localStorageService', 'DigiService'];
+    TodoCtrl.$inject = ['$scope', 'localStorageService', 'DigiService', '$rootScope'];
 
-    function TodoCtrl($scope, localStorageService, DigiService) {
+    function TodoCtrl($scope, localStorageService, DigiService, $rootScope) {
         var vm = this
         var todosInStore = localStorageService.get('todos');
-        vm.todos = todosInStore || [];
+        $rootScope.todos = DigiService.todos; // TODO: this is a nice local storage option leaving it in here :) //todosInStore || [];
         vm.photos = DigiService.photos;
         vm.addTodo = addTodo;
         vm.keyup = keyup
@@ -20,7 +20,8 @@
         vm.logout = logout;
 
         $scope.$watch('vm.todos', function () {
-          localStorageService.add('todos', vm.todos);
+            console.log("here?")
+//          localStorageService.add('todos', vm.todos);
         }, true);
 
         function addTodo() {

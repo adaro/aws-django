@@ -12,8 +12,10 @@
 
     var digiObj = {
         photos: [],
+        todos: [],
         get_projects: get_projects,
         get_project: get_project,
+        get_todos: get_todos,
         login_error: "",
         login: login
             }
@@ -41,6 +43,12 @@
         digiObj.login_error = error;
     }
 
+    function get_todos(id) {
+        return $http.get('/api/todos/' + id)
+            .then(get_projects_complete)
+            .catch(get_projects_failed);
+    }
+
     function get_project(id) {
         return $http.get('/api/project/' + id)
             .then(get_projects_complete)
@@ -58,7 +66,7 @@
     }
 
     function get_projects_failed(error) {
-        logger.error('XHR Failed for get_projects.' + error.data);
+        console.log('XHR Failed for get_projects.' + error.data);
     }
 
 
