@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from utils import generate_token
 from django.views.decorators.csrf import csrf_exempt
-from auth import authenticate_digi_user
+from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
 import json
 from forms import ProjectForm
@@ -32,6 +32,7 @@ def login(request):
 
 def logout(request):
     # render index with logout view
+    logout_digi_user(request)
     return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
 
 
@@ -43,9 +44,16 @@ def index(request):
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
 
+
 def get_projects(request):
     data = serializers.serialize('json', Project.objects.all())
     return HttpResponse(data)
+
+
+def get_project(request, project_id):
+    data = serializers.serialize('json', Project.objects.filter(id=project_id))
+    return HttpResponse(data)
+
 
 @csrf_exempt
 def create_project(request):

@@ -1,5 +1,5 @@
 __author__ = 'adaro'
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 
 
 def authenticate_digi_user(username, password):
@@ -16,3 +16,7 @@ def authenticate_digi_user(username, password):
         # the authentication system was unable to verify the username and password
         print("The username and password were incorrect.")
         return False
+
+
+def logout_digi_user(request):
+    logout(request)

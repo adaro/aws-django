@@ -620,7 +620,7 @@ body .demo-blog {
 }
 
 .demo-card-square.mdl-card {
-  width: 120px;
+  width: 172px;
   height: 120px;
   padding: 5px 5px 5px 5px;
   float: left;
@@ -706,7 +706,6 @@ body .demo-blog {
 }
 
 .close-create-project-form {
-
     position: relative;
     top: 22px;
     z-index: 2;
@@ -715,7 +714,13 @@ body .demo-blog {
 
 }
 
+.close-project-view {
+    color: #666
+
+}
+
 .projects-wrapper {
+    padding-top: 10px;
     width: 100%;
     overflow-y:scroll;
     max-height: 400px;

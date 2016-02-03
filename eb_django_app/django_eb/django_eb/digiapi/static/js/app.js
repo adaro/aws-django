@@ -34,19 +34,16 @@
 
         $stateProvider.
             state('landing', {
-
                 url: '/',
                 templateUrl: static_url + 'views/todo.html',
                 controller: 'TodoCtrl',
                 controllerAs: 'vm'
-
             }).
             state('login', {
                 url: '/api/login',
                 templateUrl: static_url + 'views/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: 'vm'
-
             }).
             state('logout', {
                 url: '/api/logout',
@@ -55,5 +52,6 @@
                 controllerAs: 'vm'
             })
     }
+
 
 }());
