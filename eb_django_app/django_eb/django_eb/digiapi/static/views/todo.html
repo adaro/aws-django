@@ -6,12 +6,12 @@
  <div class="mdl-card project-view mdl-cell mdl-cell--8-col">
     <div ng-controller="ProjectCtrl" class="mdl-card__media mdl-color-text--grey-50 override-color">
       <!--TODO: seperate these functional elements into directives-->
-        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent ng-click-active add-project" ng-click="show_form = true;">
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent ng-click-active add-project" ng-click="showForm()">
           <i class="material-icons mdl-color-text--white" role="presentation">add</i>
           <span class="visuallyhidden">add</span>
         </button>
         <div ng-show="project_view" class="demo-card-square mdl-card mdl-shadow--2dp">
-            <button class="mdl-button mdl-js-button mdl-button--icon close-project-view" ng-click="project_view = false; show_form = falsec">
+            <button class="mdl-button mdl-js-button mdl-button--icon close-project-view" ng-click="project_view = false; show_form = false">
               <i class="material-icons">close</i>
             </button>
 
@@ -158,13 +158,39 @@
   </div>
 
   <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
-      <a data-pin-do="embedUser" data-pin-board-width="2000" data-pin-scale-height="600" data-pin-scale-width="60" href="https://www.pinterest.com/Seniman_callig"></a>    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-      <div class="minilogo"></div>
-      <div>
-        <strong>The Newist</strong>
-        <span>2 days ago</span>
-      </div>
+      <!--<a data-pin-do="embedUser" data-pin-board-width="2000" data-pin-scale-height="600" data-pin-scale-width="60" href="https://www.pinterest.com/Seniman_callig"></a>    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">-->
+      <!--<div class="minilogo"></div>-->
+      <!--<div>-->
+        <!--<strong>The Newist</strong>-->
+        <!--<span>2 days ago</span>-->
+      <!--</div>-->
+
+
+
+        <div flow-init="vm.flow_config"
+             flow-files-submitted="$flow.upload()"
+             flow-file-success="vm.handle($file, $message, $flow)">
+            <span class="btn btn-lg btn-success" flow-btn>Upload File</span>
+        </div>
+        <div class="mdl-card" ng-repeat="photo in vm.photos">
+            <p ng-bind="photo"></p>
+        </div>
+
+
+             <!--<form action="api/upload/" method="post" enctype="multipart/form-data">-->
+                <!--<div class="file-field input-field">-->
+                  <!--<div class="btn">-->
+                    <!--<span flow-btn>Upload</span>-->
+                    <!--<input type="file" name="projectphoto">-->
+                  <!--</div>-->
+                  <!--<div class="file-path-wrapper">-->
+                    <!--<input class="file-path validate" type="text">-->
+                  <!--</div>-->
+                <!--</div>-->
+             <!--</form>-->
     </div>
+
+
 
 <!--<iframe src="http://www.w3schools.com"></iframe>-->
     <!--<div class="col-sm-6">-->
@@ -176,7 +202,8 @@
             <!--<div class="drag-drop-area alert alert-info" flow-drop>-->
                 <!--Drag And Drop your file here-->
             <!--</div>-->
-            <!--<div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>-->
+
+            <!--&lt;!&ndash;<div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>&ndash;&gt;-->
         <!--</div>-->
     <!--</div>-->
 

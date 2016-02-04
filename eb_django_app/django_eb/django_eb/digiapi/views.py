@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
-from models import Project, Todo
+from models import Project, Todo, Photo
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from utils import generate_token
@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
 import json
-from forms import ProjectForm
+from forms import ProjectForm, PhotoForm
 from django.core import serializers
 
 @csrf_exempt
@@ -45,7 +45,6 @@ def index(request):
         return redirect('%s?next=%s' % ("api/login", request.path))
 
 def get_todos(request, project_id):
-    print Todo.objects.filter(pk=project_id)
     data = serializers.serialize('json', Todo.objects.filter(pk=project_id))
     return HttpResponse(data)
 
@@ -58,9 +57,23 @@ def get_project(request, project_id):
     data = serializers.serialize('json', Project.objects.filter(id=project_id))
     return HttpResponse(data)
 
+#TODO: create update_poject views, one for updating adding todos  along with a view or editing project
 
 @csrf_exempt
-def create_project(request):
+def post_photo(request, project_id):
+    print request.POST, request.FILES
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            print form.cleaned_data
+            m = Project.objects.get(id=project_id)
+            m.photos = form.cleaned_data['projectphoto']
+            m.save()
+            data = serializers.serialize('json', Project.objects.filter(id=project_id))
+            return HttpResponse(data)
+
+@csrf_exempt
+def post_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():

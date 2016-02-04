@@ -15,3 +15,6 @@ class ProjectForm(forms.Form):
     deadline = forms.DateField(required=False)
     poster = forms.ImageField(required=False)
 
+
+class PhotoForm(forms.Form):
+    projectphoto = forms.ImageField(required=False)

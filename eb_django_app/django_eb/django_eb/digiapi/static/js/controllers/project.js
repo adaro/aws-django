@@ -10,8 +10,6 @@
 
     function ProjectCtrl($scope, DigiService, $state, $rootScope) {
 
-
-
         // Projects View Controller
         $scope.projects = DigiService.projects;
         $scope.project = {poster:'/static/img/coffee.jpg'};
@@ -19,14 +17,12 @@
         $scope.showLabel = showLabel;
         $scope.createStyle = createStyle;
         $scope.selectProject = selectProject;
+        $scope.showForm = showForm;
         $scope.loadTodos = loadTodos;
         $scope.select_project = true;
         $scope.show_form = false;
         $scope.datepicked = false;
         $scope.project_view = false;
-
-
-
 
         DigiService.get_projects().then(function(response) {
             $scope.projects = response.data;
@@ -37,10 +33,15 @@
           selectYears: 15 // Creates a dropdown of 15 years to control year
         });
 
+        function showForm() {
+            if (!$scope.project_view) {
+                $scope.show_form = true;
+            }
+        }
+
         function selectProject(project, indx) {
-
+            $rootScope.project_id = project.pk
             DigiService.get_project(project.pk).then(function(response) {
-
                 $scope.project = response.data;
                 $scope.project_view = true;
             })
@@ -53,7 +54,6 @@
                 DigiService.todos = response.data;
                 $rootScope.todos = response.data;
             })
-
         }
 
         function addProject() {

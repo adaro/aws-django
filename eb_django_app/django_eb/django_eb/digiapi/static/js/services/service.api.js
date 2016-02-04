@@ -17,7 +17,8 @@
         get_project: get_project,
         get_todos: get_todos,
         login_error: "",
-        login: login
+        login: login,
+        post_photos: post_photos
             }
 
 
@@ -41,6 +42,16 @@
 
     function set_error(error) {
         digiObj.login_error = error;
+    }
+
+    function post_photos(id) {
+        $http.post('/api/post_photo/' + id, {})
+            .success(function (response) {
+                console.log(response)
+            })
+            .error(function(response) {
+                console.log(response)
+            })
     }
 
     function get_todos(id) {

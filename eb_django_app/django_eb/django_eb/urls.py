@@ -14,17 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from digiapi.views import index, login, logout, create_project, get_projects, get_project, get_todos
+from digiapi.views import index, login, logout, post_project, get_projects, get_project, get_todos, post_photo
 from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/login', login),
     url(r'^api/logout', logout),
-    url(r'^api/create_project', create_project),
+    url(r'^api/create_project', post_project),
     url(r'^api/projects', get_projects),
     url(r'^api/todos/(?P<project_id>[A-Za-z0-9]+)', get_todos),
     url(r'^api/project/(?P<project_id>[A-Za-z0-9]+)', get_project),
+    url(r'^api/post_photo/(?P<project_id>[A-Za-z0-9]+)', post_photo),
     url(r'^$', index),
 
 ]
