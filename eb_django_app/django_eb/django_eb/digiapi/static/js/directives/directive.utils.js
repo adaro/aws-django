@@ -11,7 +11,6 @@ angular.module('digiBoardApp').directive('fileModel', ['$parse', 'DigiService', 
                 });
                 DigiService.post_photos(element[0].files[0], $rootScope.project_id)
                 $rootScope.photos = DigiService.get_photos( $rootScope.project_id )
-
             });
         }
     };

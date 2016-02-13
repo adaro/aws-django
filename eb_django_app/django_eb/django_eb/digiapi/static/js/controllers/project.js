@@ -19,10 +19,11 @@
         $scope.selectProject = selectProject;
         $scope.showForm = showForm;
         $scope.loadTodos = loadTodos;
-        $scope.select_project = true;
+        $scope.closeProject = closeProject;
+        $rootScope.select_project = true;
         $scope.show_form = false;
         $scope.datepicked = false;
-        $scope.project_view = false;
+        $rootScope.project_view = false;
 
         DigiService.get_projects().then(function(response) {
             $scope.projects = response.data;
@@ -34,33 +35,32 @@
         });
 
         function showForm() {
-            if (!$scope.project_view) {
+            if (!$rootScope.project_view) {
                 $scope.show_form = true;
             }
         }
 
 
-//        //TODO: turn this into a directive
-//        document.getElementById("project-photo-uploader").onchange = function() {
-////            DigiService.post_photos($scope.myFile, $rootScope.project_id)
-//
-//
-//        };
+        function closeProject() {
+            $rootScope.project_view = false;
+            $scope.show_form = false;
+            console.log()
+        }
 
         function selectProject(project, indx) {
             $rootScope.project_id = project.pk
-//            $rootScope.photo_url = "api/post_photo/" + project.pk
+            console.log("here!", $rootScope.project_view)
+            $rootScope.project_view = true;
+            //TODO: cache these
             $rootScope.project_id_url = 'api/post_photo/' + project.pk
             DigiService.get_project(project.pk).then(function(response) {
                 $scope.project = response.data;
-                $scope.project_view = true;
+
             })
 
             $scope.loadTodos(project)
             DigiService.get_photos( $rootScope.project_id ).then(function(response) {
                 $rootScope.photos = response.data
-                console.log($rootScope.photos)
-
             })
         }
 

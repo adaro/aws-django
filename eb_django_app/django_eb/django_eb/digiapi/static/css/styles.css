@@ -575,6 +575,20 @@ body .demo-blog {
     max-height: inherit;
 }
 
+.panel-dimmed {
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+      opacity: .5;
+}
+
+.panel-reg {
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+    opacity: 1;
+}
+
 .todo-input {
     width: 100%;
 }
