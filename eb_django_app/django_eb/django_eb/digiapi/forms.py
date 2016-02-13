@@ -17,4 +17,5 @@ class ProjectForm(forms.Form):
 
 
 class PhotoForm(forms.Form):
-    projectphoto = forms.ImageField(required=False)
+    file = forms.ImageField(required=False)
+    # project_id_upload = forms.CharField(label='Project id', required=False)

@@ -55,7 +55,7 @@
 
 
                   <div class="row">
-                    <form action="api/create_project/" method="post" enctype="multipart/form-data" class="col s12">
+                    <form action="api/post_project/" method="post" enctype="multipart/form-data" class="col s12">
                       <div class="row">
                         <div class="input-field col s6">
                           <input name="projectid" id="projectid" type="text" class="validate">
@@ -158,36 +158,23 @@
   </div>
 
   <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
-      <!--<a data-pin-do="embedUser" data-pin-board-width="2000" data-pin-scale-height="600" data-pin-scale-width="60" href="https://www.pinterest.com/Seniman_callig"></a>    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">-->
-      <!--<div class="minilogo"></div>-->
-      <!--<div>-->
-        <!--<strong>The Newist</strong>-->
-        <!--<span>2 days ago</span>-->
-      <!--</div>-->
 
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload</span>
+            <input id="project-photo-uploader" type="file" name="projectphoto" file-model="myFile">
+              <input id="project-id" type="hidden" name="project_id_upload" />
 
-
-        <div flow-init="vm.flow_config"
-             flow-files-submitted="$flow.upload()"
-             flow-file-success="vm.handle($file, $message, $flow)">
-            <span class="btn btn-lg btn-success" flow-btn>Upload File</span>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
         </div>
-        <div class="mdl-card" ng-repeat="photo in vm.photos">
-            <p ng-bind="photo"></p>
+        <div class="mdl-card" ng-repeat="photo in photos">
+            <img ng-src="{{photo.fields.image | split:'eb_django_app'}}" />
+            <!--<pre>{{photo.fields.image | split:'eb_django_app'}}</pre>-->
         </div>
 
-
-             <!--<form action="api/upload/" method="post" enctype="multipart/form-data">-->
-                <!--<div class="file-field input-field">-->
-                  <!--<div class="btn">-->
-                    <!--<span flow-btn>Upload</span>-->
-                    <!--<input type="file" name="projectphoto">-->
-                  <!--</div>-->
-                  <!--<div class="file-path-wrapper">-->
-                    <!--<input class="file-path validate" type="text">-->
-                  <!--</div>-->
-                <!--</div>-->
-             <!--</form>-->
     </div>
 
 

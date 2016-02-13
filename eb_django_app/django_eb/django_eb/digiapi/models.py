@@ -11,7 +11,9 @@ class Todo(models.Model):
 
 
 class Photo(models.Model):
-    image = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL)
+    related_project_id = models.CharField(max_length=250, null=True)
+    #TODO: create sub directory
+    image = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL, null=True)
 
 
 class Project(models.Model):
@@ -20,9 +22,10 @@ class Project(models.Model):
     client_name = models.CharField(max_length=250, null=True)
     deadline = models.DateTimeField(default=False, null=True)
     project_type = models.CharField(max_length=1, choices=settings.PROJECT_TYPES, null=True)
+    #TODO: create sub directory
     poster = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL, null=True)
-    todos = models.ForeignKey(Todo, on_delete=models.CASCADE)
-    photos = models.ForeignKey(Photo, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
+    todos = models.ForeignKey(Todo, on_delete=models.SET_NULL, null=True, blank=True)
+    photos = models.ForeignKey(Photo, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=True)
 
 

@@ -15,6 +15,7 @@
         todos: [],
         get_projects: get_projects,
         get_project: get_project,
+        get_photos: get_photos,
         get_todos: get_todos,
         login_error: "",
         login: login,
@@ -44,42 +45,66 @@
         digiObj.login_error = error;
     }
 
-    function post_photos(id) {
-        $http.post('/api/post_photo/' + id, {})
-            .success(function (response) {
-                console.log(response)
+    function post_photos(file, id) {
+
+        var fd = new FormData();
+            fd.append('file', file);
+            $http.post("api/post_photo/" + id, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
             })
-            .error(function(response) {
-                console.log(response)
+            .success(function(){
+                get_photos( $rootScope.project_id )
             })
+            .error(function(){
+            });
+
     }
+
+
+    //GET response for all functions
+    function get_complete(response) {
+        return response;
+    }
+
+    //GET TODOS
 
     function get_todos(id) {
         return $http.get('/api/todos/' + id)
-            .then(get_projects_complete)
+            .then(get_complete)
             .catch(get_projects_failed);
     }
 
+    //GET PROJECTS
+
     function get_project(id) {
         return $http.get('/api/project/' + id)
-            .then(get_projects_complete)
+            .then(get_complete)
             .catch(get_projects_failed);
     }
 
     function get_projects() {
         return $http.get('/api/projects')
-            .then(get_projects_complete)
+            .then(get_complete)
             .catch(get_projects_failed);
     }
 
-    function get_projects_complete(response) {
-        return response;
-    }
 
     function get_projects_failed(error) {
         console.log('XHR Failed for get_projects.' + error.data);
     }
 
+    //GET PHOTOS
+
+    function get_photos(id) {
+        return $http.get('/api/photos/' + id)
+            .then(get_complete)
+            .catch(get_photos_failed);
+    }
+
+    function get_photos_failed(error) {
+        console.log('XHR Failed for get_photos.' + error.data);
+    }
 
     return digiObj
 

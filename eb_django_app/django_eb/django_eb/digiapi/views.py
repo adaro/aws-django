@@ -29,13 +29,13 @@ def login(request):
     print "not auth'd rendering logout view"
     return redirect('%s?next=%s' % ("/api/logout", "/"))
 
-
+@csrf_exempt
 def logout(request):
     # render index with logout view
     logout_digi_user(request)
     return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
 
-
+@csrf_exempt
 def index(request):
     # check is user is authenticated and render index else redirect to login view
     if request.user.is_authenticated():
@@ -44,33 +44,44 @@ def index(request):
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
 
+@csrf_exempt
 def get_todos(request, project_id):
     data = serializers.serialize('json', Todo.objects.filter(pk=project_id))
     return HttpResponse(data)
 
+@csrf_exempt
 def get_projects(request):
     data = serializers.serialize('json', Project.objects.all())
     return HttpResponse(data)
 
-
+@csrf_exempt
 def get_project(request, project_id):
     data = serializers.serialize('json', Project.objects.filter(id=project_id))
     return HttpResponse(data)
+
+@csrf_exempt
+def get_photos(request, project_id):
+    all = Photo.objects.all()
+    for i in all:
+        print i.image
+    data = serializers.serialize('json', Photo.objects.filter(related_project_id=project_id))
+    return HttpResponse(data)
+
 
 #TODO: create update_poject views, one for updating adding todos  along with a view or editing project
 
 @csrf_exempt
 def post_photo(request, project_id):
-    print request.POST, request.FILES
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
+
         if form.is_valid():
-            print form.cleaned_data
-            m = Project.objects.get(id=project_id)
-            m.photos = form.cleaned_data['projectphoto']
-            m.save()
-            data = serializers.serialize('json', Project.objects.filter(id=project_id))
-            return HttpResponse(data)
+            p = Photo()
+            p.image = form.cleaned_data['file']
+            p.related_project_id = project_id
+            p.save()
+            return JsonResponse({"data": "success"})
+        print form.errors
 
 @csrf_exempt
 def post_project(request):
