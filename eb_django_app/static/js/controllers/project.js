@@ -16,7 +16,6 @@
         $scope.addProject = addProject
         $scope.showLabel = showLabel;
         $scope.createStyle = createStyle;
-        $scope.createStyle2 = createStyle2
         $scope.selectProject = selectProject;
         $scope.showForm = showForm;
         $scope.loadTodos = loadTodos;
@@ -45,19 +44,17 @@
         function closeProject() {
             $rootScope.project_view = false;
             $scope.show_form = false;
-            $rootScope.select_project = true;
             console.log()
         }
 
         function selectProject(project, indx) {
             $rootScope.project_id = project.pk
+            console.log("here!", $rootScope.project_view)
             $rootScope.project_view = true;
-            $rootScope.select_project = false;
             //TODO: cache these
             $rootScope.project_id_url = 'api/post_photo/' + project.pk
             DigiService.get_project(project.pk).then(function(response) {
-                $scope.project = response.data[0].fields;
-                console.log(response.data)
+                $scope.project = response.data;
 
             })
 
@@ -76,6 +73,7 @@
 
         function addProject() {
             $scope.show_form = true;
+//            DigiService.create_project()
             $scope.projects.push($scope.project);
         };
 
@@ -87,13 +85,6 @@
             return {
                 "background":
                     "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") top right 15% no-repeat "
-            }
-        }
-
-        function createStyle2(project) {
-            return {
-                "background":
-                    "url(" + "'" + "/static/img/" + project.poster.split("img/")[1] + "'" + ") top right 15% no-repeat "
             }
         }
 

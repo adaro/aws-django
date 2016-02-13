@@ -1,32 +1,58 @@
-'use strict';
+/* jshint devel:true */
+(function() {
+    'use strict';
 
-angular.module('digiBoardApp')
-  .controller('TodoCtrl', function ($scope, localStorageService, data) {
-    var todosInStore = localStorageService.get('todos');
+    angular
+        .module('digiBoardApp')
+        .controller('TodoCtrl', TodoCtrl);
 
-    $scope.todos = todosInStore || [];
-    $scope.photos = []
+    TodoCtrl.$inject = ['$scope', 'localStorageService', 'DigiService', '$rootScope', '$httpParamSerializerJQLike'];
 
-    $scope.$watch('todos', function () {
-      localStorageService.add('todos', $scope.todos);
-    }, true);
+    function TodoCtrl($scope, localStorageService, DigiService, $rootScope, $httpParamSerializerJQLike) {
+        var vm = this
+        var todosInStore = localStorageService.get('todos');
+        $rootScope.todos = DigiService.todos; // TODO: this is a nice local storage option leaving it in here :) //todosInStore || [];
+        vm.photos = DigiService.photos;
+        vm.addTodo = addTodo;
+        vm.keyup = keyup
+        vm.removeTodo = removeTodo;
+//        vm.handle = handle;
+        vm.logout = logout;
 
-    // Uncomment if you are disabling persistence
-//    $scope.todos = [];
+        $scope.$watch('vm.todos', function () {
+//          localStorageService.add('todos', vm.todos);
+        }, true);
 
-    $scope.addTodo = function () {
-      $scope.todos.push($scope.todo);
-      $scope.todo = '';
-    };
 
-    $scope.removeTodo = function (index) {
-      $scope.todos.splice(index, 1);
-    };
+        function addTodo() {
+          if (vm.todo) {
+              console.log(vm.todo)
+              $rootScope.todos.push(vm.todo);
+              vm.todo = '';
+              angular.element(document).find('.todo-input').removeClass('is-dirty')
+          }
+        };
 
-    $scope.handle = function($file, $message, $flow ) {
-        console.log($file.file)
-        $scope.photos.push( $file )
+        //TODO: get this into a directive
+        function keyup(event) {
+            if (event.keyCode == 13) {
+                addTodo()
+            }
+        }
 
+        //TODO: Get all of the todo logic and templating into a directive
+        function removeTodo(index) {
+          vm.todos.splice(index, 1);
+        };
+
+//        function handle($file, $message, $flow ) {
+//            console.log($file)
+//            vm.photos.push( $file )
+//
+//        }
+
+        function logout() {
+            localStorageService.remove('token')
+        }
     }
-
-  });
+})();

@@ -1,56 +1,57 @@
-'use strict';
+(function () {
+    'use strict';
 
-/**
- * @ngdoc overview
- * @name digiBoardApp
- * @description
- * # digiBoardApp
- *
- * Main module of the application.
- */
-angular
-  .module('digiBoardApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.sortable',
-    'LocalStorageModule',
-    'flow',
-    'akoenig.deckgrid'
-  ])
-  .config(function ($interpolateProvider, $routeProvider, localStorageServiceProvider, flowFactoryProvider) {
-  localStorageServiceProvider.setPrefix('ls');
-  $interpolateProvider.startSymbol('[[').endSymbol(']]');
+    angular
+      .module('digiBoardApp', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch',
+        'ui.sortable',
+        'LocalStorageModule',
+        'flow',
+        'akoenig.deckgrid',
+        'ui.router'
+      ])
+      .config(config);
 
-//    flowFactoryProvider.defaults = {
-//        target: '/upload',
-//        permanentErrors:[404, 500, 501]
-//    };
-    // You can also set default events:
-//    flowFactoryProvider.on('catchAll', function (event, item) {
-//      console.log(event, item)
-//    });
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider'];
+
+    function config($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        $locationProvider.html5Mode(
+            {
+              enabled: true,
+              requireBase: false
+            }
+        );
 
 
-    $routeProvider
-      .when('/', {
-        templateUrl: static_url + 'views/todo.html',
-        controller: 'TodoCtrl',
-        resolve: {
-          data: function (DigiService) {
-            return DigiService
-          }
-        }
-      })
-      .when('/about', {
-        templateUrl: static_url + 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+        $urlRouterProvider.otherwise('/');
 
+        $stateProvider.
+            state('landing', {
+                url: '/',
+                templateUrl: static_url + 'views/todo.html',
+                controller: 'TodoCtrl',
+                controllerAs: 'vm'
+            }).
+            state('login', {
+                url: '/api/login',
+                templateUrl: static_url + 'views/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'vm'
+            }).
+            state('logout', {
+                url: '/api/logout',
+                templateUrl: static_url + 'views/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'vm'
+            })
+    }
+
+
+}());

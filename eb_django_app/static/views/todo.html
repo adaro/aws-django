@@ -1,53 +1,242 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6">
 
 
-            <form role="form" ng-submit="addTodo()">
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" ng-model="todo" placeholder="What needs to be done?"
-                               class="form-control input-lg">
-        <span class="input-group-btn">
-          <input type="submit" class="btn btn-lg btn-primary" value="Add">
-        </span>
-                    </div>
-                </div>
-            </form>
-            <div class="todo-panel">
-                <h2>My todos</h2>
-                <!-- Todos input -->
 
-                <hr/>
-                <!-- Todos list -->
-                <div ui-sortable ng-model="todos">
-                    <p class="input-group" ng-repeat="todo in todos track by $index"
-                       style="padding:5px 10px; cursor: move;">
-                        <input type="text" ng-model="todo" class="form-control input-lg">
-        <span class="input-group-btn">
-          <button class="btn btn-lg btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>
-        </span>
-                    </p>
-                </div>
 
+<div class="demo-blog__posts mdl-grid">
+ <div class="mdl-card project-view mdl-cell mdl-cell--8-col">
+    <div ng-controller="ProjectCtrl" class="mdl-card__media mdl-color-text--grey-50 override-color">
+      <!--TODO: seperate these functional elements into directives-->
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent ng-click-active add-project" ng-click="showForm()">
+          <i class="material-icons mdl-color-text--white" role="presentation">add</i>
+          <span class="visuallyhidden">add</span>
+        </button>
+        <div ng-show="project_view" class="demo-card-square mdl-card mdl-shadow--2dp">
+            <button class="mdl-button mdl-js-button mdl-button--icon close-project-view" ng-click="closeProject()">
+              <i class="material-icons">close</i>
+            </button>
+
+        </div>
+        <div ng-hide="project_view || show_form" class="projects-wrapper">
+            <div class="project-card demo-card-square mdl-card mdl-shadow--2dp" ng-repeat="project in projects" ng-click="selectProject(project, $index)">
+                <!--TODO: need to inject project image into ng-class url-->
+              <div class="mdl-card__title mdl-card--expand" ng-style="createStyle(project)">
+                <h2 class="mdl-card__title-text" ng-bind="project.fields.project_id"></h2>
+              </div>
+              <div class="mdl-card__supporting-text" ng-bind="(project.fields.project_name) + ' '
+                      +  (project.fields.project_id) + ' ' + (project.fields.client_name) + ' ' + (project.fields.project_type)
+                      + (project.fields.deadline)">
+              </div>
+              <!--<div class="mdl-card__supporting-text" ng-bind="project.fields.client_name">-->
+
+              <!--</div>-->
+              <!--<div class="mdl-card__supporting-text" ng-bind="project.fields.project_type">-->
+
+              <!--</div>-->
+              <!--<div class="mdl-card__supporting-text" ng-bind="project.fields.deadline">-->
+
+              <!--</div>-->
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  Update
+                </a>
+              </div>
             </div>
         </div>
+        <div ng-show="show_form">
+            <button class="mdl-button mdl-js-button mdl-button--icon close-create-project-form" ng-click="show_form = false;">
+              <i class="material-icons">close</i>
+            </button>
 
-
-        <div class="col-sm-6">
-            <div flow-init
-                 flow-files-submitted="$flow.upload()"
-                 flow-file-success="handle($file, $message, $flow )">
-                <span class="btn btn-lg btn-success" flow-btn>Upload File</span>
-                <div class="drag-drop-area alert alert-info" flow-drop>
-                    Drag And Drop your file here
+            <div class="mdl-card mdl-shadow--6dp create-project-form">
+                <div class="mdl-card__title mdl-color--accent mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">Create Project</h2>
                 </div>
-                <div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>
+                <div class="mdl-card__supporting-text">
+
+
+                  <div class="row">
+                    <form action="api/post_project/" method="post" enctype="multipart/form-data" class="col s12">
+                      <div class="row">
+                        <div class="input-field col s6">
+                          <input name="projectid" id="projectid" type="text" class="validate">
+                          <label for="projectid">Project ID</label>
+                        </div>
+                        <div class="input-field col s6">
+                          <input name="projectname" id="projectname" type="text" class="validate">
+                          <label for="projectname">Project Name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input name="clientname" id="clientname" type="text" class="validate">
+                          <label for="clientname">Client Name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="mdl-textfield mdl-js-textfield">
+                                <input ng-click='showLabel()' name="duedate" class="datepicker" type="date" id="duedate" />
+                                <label class="mdl-textfield__label date-label" for="duedate">Due Date</label>
+                            </div>
+                      </div>
+
+                    <div class="file-field input-field">
+                      <div class="btn">
+                        <span>Project Img</span>
+                        <input type="file" name="poster">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                      </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Create Project</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+ </div>
+
+
+  <div id="todo-panel" class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop" ng-class="{'panel-dimmed': select_project, 'panel-reg': project_view}">
+
+    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="vm.addTodo()" ng-disabled="{{select_project}}">
+      <i class="material-icons mdl-color-text--white" role="presentation">add</i>
+      <span class="visuallyhidden">add</span>
+    </button>
+
+    <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600">
+        <!-- Simple Textfield -->
+        <form role="form" >
+            <div class="mdl-textfield mdl-js-textfield todo-input">
+            <div class="input-field col s6">
+                <input name="todoname" id="todoname" type="text" class="validate" ng-model="vm.todo" ng-keyup="vm.keyup($event)" ng-disabled="{{select_project}}">
+                <label class="mdl-textfield__label todo-label" for="todoname">What needs to be done?</label>
+            </div>
+          </div>
+        </form>
+
+        <hr/>
+        <!-- Todos list -->
+        <div class="todo-list-wrapper">
+            <div ui-sortable ng-model="todos" class="todo-card-wrapper">
+                <div class="mdl-card mdl-shadow--4dp todo-card"  ng-repeat="todo in todos track by $index" >
+                  <div class="mdl-card__title" ng-bind="todo.fields.detail"></div>
+                  <div class="mdl-card__actions">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" ng-click="vm.removeTodo($index)" aria-label="Remove">Remove</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
+      <div>
+        <strong>The Newist</strong>
+      </div>
+      <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menubtn">
+        <li class="mdl-menu__item">About</li>
+        <li class="mdl-menu__item">Message</li>
+        <li class="mdl-menu__item">Favorite</li>
+        <li class="mdl-menu__item">Search</li>
+      </ul>
+      <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">more_vert</i>
+        <span class="visuallyhidden">show menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col" ng-class="{'panel-dimmed': select_project, 'panel-reg': project_view}">
+
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload</span>
+            <input id="project-photo-uploader" type="file" name="projectphoto" file-model="myFile" ng-disabled="{{select_project}}">
+              <input id="project-id" type="hidden" name="project_id_upload" />
+
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" ng-disabled="{{select_project}}">
+          </div>
+        </div>
+        <div class="mdl-card" ng-repeat="photo in photos">
+            <img ng-src="{{photo.fields.image | split:'eb_django_app'}}" width="75" height="75"/>
+            <!--<pre>{{photo.fields.image | split:'eb_django_app'}}</pre>-->
         </div>
 
     </div>
-</div>
 
-<!--TODO: we'll need to setup an s3 bucket to dump the images in-->
+
+
+<!--<iframe src="http://www.w3schools.com"></iframe>-->
+    <!--<div class="col-sm-6">-->
+        <!--<div flow-init-->
+             <!--flow-files-submitted="$flow.upload()"-->
+             <!--flow-file-success="vm.handle($file, $message, $flow )">-->
+            <!--<span class="btn btn-lg btn-success" flow-btn>Upload File</span>-->
+
+            <!--<div class="drag-drop-area alert alert-info" flow-drop>-->
+                <!--Drag And Drop your file here-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash;<div deckgrid source="photos" cardTemplate="/static/views/deckgrid-card.html" class="deckgrid"></div>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+
+  </div>
+
+
+  <!--<div class="mdl-card amazing mdl-cell mdl-cell--12-col">-->
+    <!--<div class="mdl-card__title mdl-color-text--grey-50">-->
+      <!--<h3 class="quote"><a href="entry.html">I couldn’t take any pictures but this was an amazing thing…</a></h3>-->
+    <!--</div>-->
+    <!--<div class="mdl-card__supporting-text mdl-color-text--grey-600">-->
+      <!--Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.-->
+    <!--</div>-->
+    <!--<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">-->
+      <!--<div class="minilogo"></div>-->
+      <!--<div>-->
+        <!--<strong>The Newist</strong>-->
+        <!--<span>2 days ago</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="mdl-card shopping mdl-cell mdl-cell--12-col">-->
+    <!--<div class="mdl-card__media mdl-color-text--grey-50">-->
+      <!--<h3><a href="entry.html">Shopping</a></h3>-->
+    <!--</div>-->
+    <!--<div class="mdl-card__supporting-text mdl-color-text--grey-600">-->
+      <!--Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.-->
+    <!--</div>-->
+    <!--<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">-->
+      <!--<div class="minilogo"></div>-->
+      <!--<div>-->
+        <!--<strong>The Newist</strong>-->
+        <!--<span>2 days ago</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<nav class="demo-nav mdl-cell mdl-cell--12-col">-->
+    <!--<div class="section-spacer"></div>-->
+    <!--<a href="entry.html" class="demo-nav__button" title="show more">-->
+      <!--More-->
+      <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">-->
+        <!--<i class="material-icons" role="presentation">arrow_forward</i>-->
+      <!--</button>-->
+    <!--</a>-->
+  <!--</nav>-->
+<!--</div>-->
+
+<a href="/api/logout" ng-click="vm.logout()" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Logout</a>
 

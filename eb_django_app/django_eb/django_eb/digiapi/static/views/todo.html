@@ -10,12 +10,24 @@
           <i class="material-icons mdl-color-text--white" role="presentation">add</i>
           <span class="visuallyhidden">add</span>
         </button>
-        <div ng-show="project_view" class="demo-card-square mdl-card mdl-shadow--2dp">
+
+        <!--PROJECT DETAIL VIEW-->
+        <div ng-show="project_view" class="demo-card-wide mdl-card mdl-shadow--2dp project-view">
             <button class="mdl-button mdl-js-button mdl-button--icon close-project-view" ng-click="closeProject()">
               <i class="material-icons">close</i>
             </button>
 
+              <div class="mdl-card__title mdl-card--expand" ng-style="createStyle2(project)">
+                <h2 class="mdl-card__title-text" ng-bind="project.project_id"></h2>
+              </div>
+              <div class="mdl-card__supporting-text" ng-bind="(project.project_name) + ' '
+                      +  (project.project_id) + ' ' + (project.client_name) + ' ' + (project.project_type)
+                      + (project.deadline)">
+              </div>
+
+
         </div>
+
         <div ng-hide="project_view || show_form" class="projects-wrapper">
             <div class="project-card demo-card-square mdl-card mdl-shadow--2dp" ng-repeat="project in projects" ng-click="selectProject(project, $index)">
                 <!--TODO: need to inject project image into ng-class url-->
@@ -111,7 +123,7 @@
 
   <div id="todo-panel" class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop" ng-class="{'panel-dimmed': select_project, 'panel-reg': project_view}">
 
-    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="vm.addTodo()" ng-disabled="{{select_project}}">
+    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="vm.addTodo()" ng-disabled="select_project">
       <i class="material-icons mdl-color-text--white" role="presentation">add</i>
       <span class="visuallyhidden">add</span>
     </button>
@@ -121,7 +133,7 @@
         <form role="form" >
             <div class="mdl-textfield mdl-js-textfield todo-input">
             <div class="input-field col s6">
-                <input name="todoname" id="todoname" type="text" class="validate" ng-model="vm.todo" ng-keyup="vm.keyup($event)" ng-disabled="{{select_project}}">
+                <input name="todoname" id="todoname" type="text" class="validate" ng-model="vm.todo" ng-keyup="vm.keyup($event)" ng-disabled="select_project">
                 <label class="mdl-textfield__label todo-label" for="todoname">What needs to be done?</label>
             </div>
           </div>
@@ -162,16 +174,16 @@
         <div class="file-field input-field">
           <div class="btn">
             <span>Upload</span>
-            <input id="project-photo-uploader" type="file" name="projectphoto" file-model="myFile" ng-disabled="{{select_project}}">
+            <input id="project-photo-uploader" type="file" name="projectphoto" file-model="myFile" ng-disabled="select_project">
               <input id="project-id" type="hidden" name="project_id_upload" />
 
           </div>
           <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" ng-disabled="{{select_project}}">
+            <input class="file-path validate" type="text" ng-disabled="select_project">
           </div>
         </div>
         <div class="mdl-card" ng-repeat="photo in photos">
-            <img ng-src="{{photo.fields.image | split:'eb_django_app'}}" />
+            <img ng-src="{{photo.fields.image | split:'eb_django_app'}}" width="75" height="75"/>
             <!--<pre>{{photo.fields.image | split:'eb_django_app'}}</pre>-->
         </div>
 

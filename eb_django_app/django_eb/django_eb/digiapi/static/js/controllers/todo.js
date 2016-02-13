@@ -16,7 +16,7 @@
         vm.addTodo = addTodo;
         vm.keyup = keyup
         vm.removeTodo = removeTodo;
-//        vm.handle = handle;
+        vm.handle = handle;
         vm.logout = logout;
 
         $scope.$watch('vm.todos', function () {
@@ -45,11 +45,11 @@
           vm.todos.splice(index, 1);
         };
 
-//        function handle($file, $message, $flow ) {
-//            console.log($file)
-//            vm.photos.push( $file )
-//
-//        }
+        function handle($file, $message, $flow ) {
+            console.log($file)
+            vm.photos.push( $file )
+
+        }
 
         function logout() {
             localStorageService.remove('token')
