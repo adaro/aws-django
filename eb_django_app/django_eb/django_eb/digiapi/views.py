@@ -50,14 +50,18 @@ def get_projects(request):
     data = serializers.serialize('json', Project.objects.all(), use_natural_foreign_keys=True)
     return HttpResponse(data)
 
-#TODO: serialize these into the Project model
-@csrf_exempt
-def get_photos(request, project_id):
-    all = Photo.objects.all()
-    for i in all:
-        print i.image
-    data = serializers.serialize('json', Photo.objects.filter(related_project_id=project_id))
+def get_project(request, project_id):
+    data = serializers.serialize('json', Project.objects.filter(id=project_id), use_natural_foreign_keys=True)
     return HttpResponse(data)
+
+#TODO: serialize these into the Project model
+# @csrf_exempt
+# def get_photos(request, project_id):
+#     all = Photo.objects.all()
+#     for i in all:
+#         print i.image
+#     data = serializers.serialize('json', Photo.objects.filter(related_project_id=project_id))
+#     return HttpResponse(data)
 
 
 #TODO: create update_poject views, one for updating adding todos  along with a view or editing project
@@ -104,9 +108,10 @@ def post_photo(request, project_id):
         form = PhotoForm(request.POST, request.FILES)
 
         if form.is_valid():
-            p = Photo()
-            p.image = form.cleaned_data['file']
-            p.related_project_id = project_id
+            p = Project.objects.get(id=project_id)
+            image = form.cleaned_data['file']
+            ph = Photo.objects.create(image=image)
+            p.photos.add(ph)
             p.save()
             return JsonResponse({"data": "success"})
         print form.errors

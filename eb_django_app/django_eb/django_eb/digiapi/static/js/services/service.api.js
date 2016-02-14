@@ -14,7 +14,7 @@
         photos: [],
         todos: [],
         get_projects: get_projects,
-        get_photos: get_photos,
+//        get_photos: get_photos,
         login_error: "",
         login: login,
         post_photos: post_photos,
@@ -53,7 +53,7 @@
                 headers: {'Content-Type': undefined}
             })
             .success(function(){
-                get_photos( $rootScope.project_id )
+                get_projects( $rootScope.project_id )
             })
             .error(function(){
             });
@@ -87,8 +87,13 @@
 
     //GET PROJECTS
 
-    function get_projects() {
-        return $http.get('/api/projects')
+    function get_projects(project_id) {
+        var url = '/api/projects'
+        console.log(project_id)
+        if (project_id) {
+            url = '/api/projects/' + project_id
+        }
+        return $http.get(url)
             .then(get_complete)
             .catch(get_projects_failed);
     }
@@ -100,15 +105,15 @@
 
     //GET PHOTOS
 
-    function get_photos(id) {
-        return $http.get('/api/photos/' + id)
-            .then(get_complete)
-            .catch(get_photos_failed);
-    }
-
-    function get_photos_failed(error) {
-        console.log('XHR Failed for get_photos.' + error.data);
-    }
+//    function get_photos(id) {
+//        return $http.get('/api/photos/' + id)
+//            .then(get_complete)
+//            .catch(get_photos_failed);
+//    }
+//
+//    function get_photos_failed(error) {
+//        console.log('XHR Failed for get_photos.' + error.data);
+//    }
 
     return digiObj
 

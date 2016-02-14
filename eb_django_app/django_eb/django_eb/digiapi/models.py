@@ -23,10 +23,18 @@ class Todo(models.Model):
         unique_together = (('detail', 'status', 'priority'),)
 
 
+class PhotoManager(models.Manager):
+    def get_by_natural_key(self, image):
+        return self.get(image=image)
+
+
 class Photo(models.Model):
-    related_project_id = models.CharField(max_length=250, null=True)
+    objects = PhotoManager()
     #TODO: create sub directory
-    image = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL, null=True)
+    image = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL + '/digiboard', null=True)
+
+    def natural_key(self):
+        return (self.image.url)
 
 
 class Project(models.Model):
@@ -36,10 +44,10 @@ class Project(models.Model):
     deadline = models.DateTimeField(default=False, null=True)
     project_type = models.CharField(max_length=1, choices=settings.PROJECT_TYPES, null=True)
     #TODO: create sub directory
-    poster = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL, null=True)
+    poster = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL + '/digiboard', null=True)
     todos = models.ManyToManyField(Todo, blank=True)
     #TODO: refactor to m2m
-    photos = models.ForeignKey(Photo, on_delete=models.SET_NULL, null=True, blank=True)
+    photos = models.ManyToManyField(Photo, blank=True)
     active = models.BooleanField(default=True)
 
 

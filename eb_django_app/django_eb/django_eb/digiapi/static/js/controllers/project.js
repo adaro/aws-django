@@ -24,7 +24,7 @@
         $rootScope.project_view = false;
         var utils = UtilsService
 
-        DigiService.get_projects().then(function(response) {
+        DigiService.get_projects(null).then(function(response) {
             $scope.projects = response.data;
         })
 
@@ -54,9 +54,9 @@
             $scope.project_type = utils.PROJECT_TYPES[project.fields.project_type]
             $rootScope.todos = $scope.projects[indx].fields.todos || []
 
-            DigiService.get_photos( $rootScope.project_id ).then(function(response) {
-                $rootScope.photos = response.data
-            })
+//            DigiService.get_projects( $rootScope.project_id ).then(function(response) {
+//                $rootScope.project = response.data
+//            })
         }
 
         function addProject() {

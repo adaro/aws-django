@@ -620,6 +620,18 @@ body .demo-blog {
     transition: opacity 0.2s ease-in-out;
     }
 
+.todo-status-high {
+    background-color: #d69691;
+}
+
+.todo-status-med {
+    background-color: #d6c591;
+}
+
+.todo-status-low {
+    background-color:#b4c1d0
+}
+
 .deckgrid[deckgrid]::before {
     /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
     content: '4 .column.column-1-4';
@@ -637,6 +649,14 @@ body .demo-blog {
 
 *:focus {
     outline: none;
+}
+
+.demo-card-wide.mdl-card {
+  position: relative;
+  top:10px;
+  width: 100%;
+  height: 90%;
+  padding: 5px 5px 5px 5px;
 }
 
 .demo-card-square.mdl-card {
@@ -739,6 +759,9 @@ body .demo-blog {
 
 }
 
+.project-view {
+}
+
 .close-project-view {
     color: #666
 
@@ -749,4 +772,8 @@ body .demo-blog {
     width: 100%;
     overflow-y:scroll;
     max-height: 400px;
+}
+
+.project-image {
+    height:300px;
 }

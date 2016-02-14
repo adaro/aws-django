@@ -59,9 +59,9 @@
             })
 
             $scope.loadTodos(project)
-            DigiService.get_photos( $rootScope.project_id ).then(function(response) {
-                $rootScope.photos = response.data
-            })
+//            DigiService.get_photos( $rootScope.project_id ).then(function(response) {
+//                $rootScope.photos = response.data
+//            })
         }
 
         function loadTodos(project) {
