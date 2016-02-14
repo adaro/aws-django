@@ -4,10 +4,23 @@ from django.db import models
 from django.conf import settings
 
 
+class TodoManager(models.Manager):
+    def get_by_natural_key(self, detail, status, priority):
+        return self.get(detail=detail, status=status, priority=priority)
+
+
 class Todo(models.Model):
+    objects = TodoManager()
+
     detail = models.TextField(null=False)
     status = models.CharField(max_length=1, choices=settings.STATUS_TYPES, null=True)
     priority = models.CharField(max_length=1, choices=settings.PRIORITY_TYPES, null=True)
+
+    def natural_key(self):
+        return {"detail":self.detail, "status":self.status, "priority":self.priority}
+
+    class Meta:
+        unique_together = (('detail', 'status', 'priority'),)
 
 
 class Photo(models.Model):
@@ -24,10 +37,9 @@ class Project(models.Model):
     project_type = models.CharField(max_length=1, choices=settings.PROJECT_TYPES, null=True)
     #TODO: create sub directory
     poster = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL, null=True)
-    todos = models.ForeignKey(Todo, on_delete=models.SET_NULL, null=True, blank=True)
+    todos = models.ManyToManyField(Todo, blank=True)
+    #TODO: refactor to m2m
     photos = models.ForeignKey(Photo, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=True)
-
-
 
 

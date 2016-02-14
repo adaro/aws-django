@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
 import json
-from forms import ProjectForm, PhotoForm
+from forms import ProjectForm, PhotoForm, TodoForm
 from django.core import serializers
 
 @csrf_exempt
@@ -44,21 +44,13 @@ def index(request):
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
 
-@csrf_exempt
-def get_todos(request, project_id):
-    data = serializers.serialize('json', Todo.objects.filter(pk=project_id))
-    return HttpResponse(data)
 
 @csrf_exempt
 def get_projects(request):
-    data = serializers.serialize('json', Project.objects.all())
+    data = serializers.serialize('json', Project.objects.all(), use_natural_foreign_keys=True)
     return HttpResponse(data)
 
-@csrf_exempt
-def get_project(request, project_id):
-    data = serializers.serialize('json', Project.objects.filter(id=project_id))
-    return HttpResponse(data)
-
+#TODO: serialize these into the Project model
 @csrf_exempt
 def get_photos(request, project_id):
     all = Photo.objects.all()
@@ -69,19 +61,6 @@ def get_photos(request, project_id):
 
 
 #TODO: create update_poject views, one for updating adding todos  along with a view or editing project
-
-@csrf_exempt
-def post_photo(request, project_id):
-    if request.method == 'POST':
-        form = PhotoForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            p = Photo()
-            p.image = form.cleaned_data['file']
-            p.related_project_id = project_id
-            p.save()
-            return JsonResponse({"data": "success"})
-        print form.errors
 
 @csrf_exempt
 def post_project(request):
@@ -99,4 +78,35 @@ def post_project(request):
             m.save()
             #TODO: dont redirect here send through ajax
             return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
+        print form.errors
+
+@csrf_exempt
+def post_todo(request, project_id):
+    if request.method == 'POST':
+        form = TodoForm(request.POST)
+
+        if form.is_valid():
+
+            detail = form.cleaned_data['detail']
+            status = form.cleaned_data['status']
+            priority = form.cleaned_data['priority']
+
+            p = Project.objects.get(id=project_id)
+            t = Todo.objects.create(detail=detail, status=status, priority=priority)
+            p.todos.add(t)
+            p.save()
+            return JsonResponse({"data": "success"})
+        print form.errors
+
+@csrf_exempt
+def post_photo(request, project_id):
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            p = Photo()
+            p.image = form.cleaned_data['file']
+            p.related_project_id = project_id
+            p.save()
+            return JsonResponse({"data": "success"})
         print form.errors

@@ -1,5 +1,6 @@
 from django import forms
 
+
 class ProjectForm(forms.Form):
     PROJECT_TYPES = (
         ('I', 'Invitation'),
@@ -14,6 +15,12 @@ class ProjectForm(forms.Form):
     clientname = forms.CharField(label='Client name', required=False)
     deadline = forms.DateField(required=False)
     poster = forms.ImageField(required=False)
+
+
+class TodoForm(forms.Form):
+    detail = forms.CharField(label='Detail', required=False)
+    status = forms.CharField(label='Status', required=False)
+    priority = forms.CharField(label='Priority', required=False)
 
 
 class PhotoForm(forms.Form):

@@ -6,25 +6,23 @@
         .module('digiBoardApp')
         .controller('ProjectCtrl', ProjectCtrl);
 
-    ProjectCtrl.$inject = ['$scope', 'DigiService', '$state', '$rootScope'];
+    ProjectCtrl.$inject = ['$scope', 'DigiService', '$state', '$rootScope', 'UtilsService'];
 
-    function ProjectCtrl($scope, DigiService, $state, $rootScope) {
+    function ProjectCtrl($scope, DigiService, $state, $rootScope, UtilsService) {
 
         // Projects View Controller
         $scope.projects = DigiService.projects;
-        $scope.project = {poster:'/static/img/coffee.jpg'};
         $scope.addProject = addProject
         $scope.showLabel = showLabel;
         $scope.createStyle = createStyle;
-        $scope.createStyle2 = createStyle2
         $scope.selectProject = selectProject;
         $scope.showForm = showForm;
-        $scope.loadTodos = loadTodos;
         $scope.closeProject = closeProject;
         $rootScope.select_project = true;
         $scope.show_form = false;
         $scope.datepicked = false;
         $rootScope.project_view = false;
+        var utils = UtilsService
 
         DigiService.get_projects().then(function(response) {
             $scope.projects = response.data;
@@ -46,31 +44,18 @@
             $rootScope.project_view = false;
             $scope.show_form = false;
             $rootScope.select_project = true;
-            console.log()
         }
 
         function selectProject(project, indx) {
             $rootScope.project_id = project.pk
             $rootScope.project_view = true;
             $rootScope.select_project = false;
-            //TODO: cache these
-            $rootScope.project_id_url = 'api/post_photo/' + project.pk
-            DigiService.get_project(project.pk).then(function(response) {
-                $scope.project = response.data[0].fields;
-                console.log(response.data)
+            $scope.project = $scope.projects[indx]
+            $scope.project_type = utils.PROJECT_TYPES[project.fields.project_type]
+            $rootScope.todos = $scope.projects[indx].fields.todos || []
 
-            })
-
-            $scope.loadTodos(project)
             DigiService.get_photos( $rootScope.project_id ).then(function(response) {
                 $rootScope.photos = response.data
-            })
-        }
-
-        function loadTodos(project) {
-            DigiService.get_todos(project.pk).then(function(response) {
-                DigiService.todos = response.data;
-                $rootScope.todos = response.data;
             })
         }
 
@@ -84,18 +69,26 @@
         }
 
         function createStyle(project) {
-            return {
-                "background":
-                    "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ") top right 15% no-repeat "
+            if (project) {
+                return {
+                    "background":
+                        "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ")  no-repeat",
+                    "background-size":
+                        'contain'
+                }
             }
+
+            if ($scope.project) {
+                return {
+                    "background":
+                        "url(" + "'" + "/static/img/" + $scope.project.fields.poster.split("img/")[1] + "'" + ") center no-repeat",
+                    "background-size":
+                        'cover'
+                }
+            }
+
         }
 
-        function createStyle2(project) {
-            return {
-                "background":
-                    "url(" + "'" + "/static/img/" + project.poster.split("img/")[1] + "'" + ") top right 15% no-repeat "
-            }
-        }
 
     }
 })();
