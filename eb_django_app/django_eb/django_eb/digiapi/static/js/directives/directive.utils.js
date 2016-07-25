@@ -9,8 +9,8 @@ angular.module('digiBoardApp').directive('fileModel', ['$parse', 'DigiService', 
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
                 });
-                DigiService.post_photos(element[0].files[0], $rootScope.project_id)
-//                $rootScope.photos = DigiService.get_projects( $rootScope.project_id )
+                var results = DigiService.post_photos(element[0].files[0], $rootScope.project_id)
+                $rootScope.photos = results.fields.photos;
             });
         }
     };

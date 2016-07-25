@@ -25,8 +25,14 @@
         var utils = UtilsService
 
         DigiService.get_projects(null).then(function(response) {
-            $scope.projects = response.data;
+            if (response) {
+                $scope.projects = response.data;
+            }
         })
+
+//        DigiService.get_photos(null).then(function(response) {
+//            $scope.projects = response.data;
+//        })
 
         angular.element('.datepicker').pickadate({
           selectMonths: true, // Creates a dropdown to control month
@@ -53,10 +59,7 @@
             $scope.project = $scope.projects[indx]
             $scope.project_type = utils.PROJECT_TYPES[project.fields.project_type]
             $rootScope.todos = $scope.projects[indx].fields.todos || []
-
-//            DigiService.get_projects( $rootScope.project_id ).then(function(response) {
-//                $rootScope.project = response.data
-//            })
+            $rootScope.photos = $scope.projects[indx].fields.photos || []
         }
 
         function addProject() {
@@ -72,16 +75,17 @@
             if (project) {
                 return {
                     "background":
-                        "url(" + "'" + "/static/img/" + project.fields.poster.split("img/")[1] + "'" + ")  no-repeat",
+                        "url(" + "'" + "/media/" + project.fields.poster + "'" + ")  no-repeat",
                     "background-size":
                         'contain'
                 }
             }
 
             if ($scope.project) {
+                console.log($scope.project)
                 return {
                     "background":
-                        "url(" + "'" + "/static/img/" + $scope.project.fields.poster.split("img/")[1] + "'" + ") center no-repeat",
+                        "url(" + "'" + "/media/" + $scope.project.fields.poster + "'" + ") center no-repeat",
                     "background-size":
                         'cover'
                 }

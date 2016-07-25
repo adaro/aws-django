@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAll
 from models import Project, Todo, Photo
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from utils import generate_token
+from utils import generate_token, send_file
 from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
@@ -37,9 +37,9 @@ def logout(request):
 
 @csrf_exempt
 def index(request):
+
     # check is user is authenticated and render index else redirect to login view
     if request.user.is_authenticated():
-        print "auth'd! rendering index.html"
         return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
     else:
         return redirect('%s?next=%s' % ("api/login", request.path))
@@ -50,9 +50,18 @@ def get_projects(request):
     data = serializers.serialize('json', Project.objects.all(), use_natural_foreign_keys=True)
     return HttpResponse(data)
 
+@csrf_exempt
 def get_project(request, project_id):
     data = serializers.serialize('json', Project.objects.filter(id=project_id), use_natural_foreign_keys=True)
     return HttpResponse(data)
+
+@csrf_exempt
+def get_media(request, project_id):
+    print project_id
+    project = Project.objects.get(id=project_id)
+    print project.poster
+    img = open(str(project.poster), 'r')
+    return send_file(img)
 
 #TODO: serialize these into the Project model
 # @csrf_exempt

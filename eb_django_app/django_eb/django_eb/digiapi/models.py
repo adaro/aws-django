@@ -1,7 +1,13 @@
 from __future__ import unicode_literals
+import os
 
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+PRIVATE_DIR = os.path.join(settings.BASE_DIR, '/eb_django_app/static/img/')
+FS = FileSystemStorage(location=PRIVATE_DIR)
+
 
 
 class TodoManager(models.Manager):
@@ -31,7 +37,7 @@ class PhotoManager(models.Manager):
 class Photo(models.Model):
     objects = PhotoManager()
     #TODO: create sub directory
-    image = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL + '/digiboard', null=True)
+    image = models.ImageField(upload_to='photo', null=True, blank=True) #storage=FS
 
     def natural_key(self):
         return (self.image.url)
@@ -44,7 +50,8 @@ class Project(models.Model):
     deadline = models.DateTimeField(default=False, null=True)
     project_type = models.CharField(max_length=1, choices=settings.PROJECT_TYPES, null=True)
     #TODO: create sub directory
-    poster = models.ImageField(upload_to=settings.PROJECT_ROOT + settings.IMG_URL + '/digiboard', null=True)
+    poster = models.ImageField(upload_to='photo', null=True, blank=True)
+     # /Users/adaro/PycharmProjects/DIGIBOARD/eb_django_app/static/img/photos
     todos = models.ManyToManyField(Todo, blank=True)
     #TODO: refactor to m2m
     photos = models.ManyToManyField(Photo, blank=True)
