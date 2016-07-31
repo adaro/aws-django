@@ -18,7 +18,8 @@
         login_error: "",
         login: login,
         post_photos: post_photos,
-        post_todo: post_todo
+        post_todo: post_todo,
+        delete_todo: delete_todo
             }
 
 
@@ -45,7 +46,7 @@
     }
 
     function post_photos(file, id) {
-
+        //TODO: refactor this and post_todo into 1 func
         var fd = new FormData();
             fd.append('file', file);
             $http.post("api/post_photo/" + id, fd, {
@@ -72,11 +73,27 @@
                 headers: {'Content-Type': undefined}
             })
             .success(function(){
-                get_photos( $rootScope.project_id )
+//                get_photos( $rootScope.project_id )
             })
             .error(function(){
             });
 
+    }
+
+
+    function delete_todo(id, todo) {
+            console.log(todo.detail)
+            var fd = new FormData();
+                fd.append('todo', todo.detail);
+            $http.post("api/delete_todo/" + id, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(){
+//                get_photos( $rootScope.project_id )
+            })
+            .error(function(){
+            });
     }
 
 

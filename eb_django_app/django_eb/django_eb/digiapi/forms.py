@@ -23,6 +23,10 @@ class TodoForm(forms.Form):
     priority = forms.CharField(label='Priority', required=False)
 
 
+class DeleteTodoForm(forms.Form):
+    todo = forms.CharField(label='Todo', required=False)
+
+
 class PhotoForm(forms.Form):
     file = forms.ImageField(required=False)
     # project_id_upload = forms.CharField(label='Project id', required=False)

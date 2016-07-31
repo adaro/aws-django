@@ -30,7 +30,7 @@
 
         function addTodo() {
           if (vm.todo) {
-              $rootScope.todos.push(vm.todo);
+              $rootScope.todos.push({"priority":"H" ,"status":"P" ,"detail": vm.todo});
               //TODO: have todo view toggle set the priority and status
               DigiService.post_todo(vm.todo, "H", "P", $rootScope.project_id)
               vm.todo = '';
@@ -38,7 +38,7 @@
           }
         };
 
-        //TODO: get this into a directive
+        //TODO: this fires our createStyle for some reason
         function keyup(event) {
             if (event.keyCode == 13) {
                 addTodo()
@@ -47,6 +47,8 @@
 
         //TODO: Get all of the todo logic and templating into a directive
         function removeTodo(index) {
+          var todo = $rootScope.todos[index];
+          DigiService.delete_todo($rootScope.project_id, todo);
           $rootScope.todos.splice(index, 1);
 
         };

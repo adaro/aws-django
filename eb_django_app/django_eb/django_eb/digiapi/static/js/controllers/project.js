@@ -11,6 +11,7 @@
     function ProjectCtrl($scope, DigiService, $state, $rootScope, UtilsService) {
 
         // Projects View Controller
+        // TODO: cleanup var names
         $scope.projects = DigiService.projects;
         $scope.addProject = addProject
         $scope.showLabel = showLabel;

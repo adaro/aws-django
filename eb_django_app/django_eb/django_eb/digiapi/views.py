@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
 import json
-from forms import ProjectForm, PhotoForm, TodoForm
+from forms import ProjectForm, PhotoForm, TodoForm, DeleteTodoForm
 from django.core import serializers
 
 @csrf_exempt
@@ -110,6 +110,18 @@ def post_todo(request, project_id):
             p.save()
             return JsonResponse({"data": "success"})
         print form.errors
+
+@csrf_exempt
+def delete_todo(request, project_id):
+    if request.method == 'POST':
+        form = DeleteTodoForm(request.POST)
+        if form.is_valid():
+            detail = form.cleaned_data['todo']
+            todo = Todo.objects.get(detail=detail)
+            p = Project.objects.get(id=project_id)
+            result = p.todos.remove(todo)
+            #TODO: add check here for reult
+            return HttpResponse("success")
 
 @csrf_exempt
 def post_photo(request, project_id):
