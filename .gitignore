@@ -1,3 +1,4 @@
+/eb_django_app/venv
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
@@ -7,5 +8,6 @@
 *.pyc
 *.bower.json
 .DS_STORE
+/eb_django_app/django_eb/django_eb/media
 
 *.pyc

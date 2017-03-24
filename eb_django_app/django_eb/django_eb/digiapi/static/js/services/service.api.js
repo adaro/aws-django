@@ -61,12 +61,15 @@
 
     }
 
-    function post_todo(detail, priority, status, id) {
+    function post_todo(todo_item, id) {
 
         var fd = new FormData();
-            fd.append('detail', detail);
-            fd.append('priority', priority);
-            fd.append('status', status);
+            fd.append('title', todo_item.title);
+            fd.append('detail', todo_item.title);
+
+            fd.append('priority', todo_item.priority);
+            fd.append('status', todo_item.status);
+            fd.append('index', todo_item.index);
 
             $http.post("api/post_todo/" + id, fd, {
                 transformRequest: angular.identity,
@@ -82,18 +85,13 @@
 
 
     function delete_todo(id, todo) {
-            console.log(todo.detail)
-            var fd = new FormData();
-                fd.append('todo', todo.detail);
-            $http.post("api/delete_todo/" + id, fd, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            })
-            .success(function(){
+        console.log(todo)
+        $http.delete("api/delete_todo/" + id + '/' + todo.index)
+        .success(function(){
 //                get_photos( $rootScope.project_id )
-            })
-            .error(function(){
-            });
+        })
+        .error(function(){
+        });
     }
 
 

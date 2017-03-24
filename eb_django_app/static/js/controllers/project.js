@@ -43,6 +43,7 @@
         function closeProject() {
             $rootScope.project_view = false;
             $scope.show_form = false;
+            $rootScope.todos = false
             $rootScope.select_project = true;
         }
 

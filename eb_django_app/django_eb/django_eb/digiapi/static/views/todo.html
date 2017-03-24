@@ -1,7 +1,4 @@
 
-
-
-
 <div class="demo-blog__posts mdl-grid">
  <div class="mdl-card project-view mdl-cell mdl-cell--8-col">
     <div ng-controller="ProjectCtrl" class="mdl-card__media mdl-color-text--grey-50 override-color">
@@ -129,22 +126,32 @@
   <div id="todo-panel" class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop"
        ng-class="{'panel-dimmed': select_project, 'panel-reg': project_view}">
 
-    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" ng-click="vm.addTodo()"
+    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent add-todo-btn" ng-click="vm.addTodo()"
             ng-disabled="select_project">
       <i class="material-icons mdl-color-text--white" role="presentation">add</i>
       <span class="visuallyhidden">add</span>
     </button>
 
-    <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600">
+    <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600 todo-form">
         <!-- Simple Textfield -->
         <form role="form" >
             <div class="mdl-textfield mdl-js-textfield todo-input">
+
                 <div class="input-field col s6">
-                    <input name="todoname" id="todoname" type="text" class="validate"
-                           ng-model="vm.todo" ng-keyup="vm.keyup($event)" ng-disabled="select_project">
-                    <label class="mdl-textfield__label todo-label" for="todoname">What needs to be done?</label>
+                    <input name="todotitle" id="todotitle" type="text" class="validate"
+                           ng-model="vm.todo.title" ng-disabled="select_project">
+                    <label class="mdl-textfield__label todo-label" for="todotitle">Title</label>
                 </div>
-          </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield todo-input">
+                <div class="input-field col s6">
+                    <input name="tododetails" id="tododetails" type="text" class="validate"
+                           ng-model="vm.todo.detail" ng-keyup="vm.keyup($event)" ng-disabled="select_project">
+                    <label class="mdl-textfield__label todo-label" for="tododetails">Detail</label>
+                </div>
+            </div>
+
+
         </form>
 
         <hr/>
@@ -156,6 +163,7 @@
                      ng-class="{'todo-status-high':todo.priority === 'H',
                      'todo-status-med':todo.priority === 'M',
                      'todo-status-low':todo.priority === 'L' }">
+                  <div class="mdl-card__title" ng-bind="todo.title"></div>
                   <div class="mdl-card__title" ng-bind="todo.detail"></div>
                   <div class="mdl-card__actions">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent

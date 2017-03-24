@@ -10,11 +10,10 @@
 
     function TodoCtrl($scope, localStorageService, DigiService, $rootScope, UtilsService) {
         var vm = this
-        var todosInStore = localStorageService.get('todos');
+        var todosInStore = localStorageService.get('todos'); // local storage if we need it
         var utils = UtilsService; // TODO: put this on $scope eventually when we add it to the view
-        $rootScope.todos = DigiService.todos; // TODO: this is a nice local storage option leaving it in here :) //todosInStore || [];
-        console.log($rootScope.todos)
-        vm.todo = '';
+        $rootScope.todos = DigiService.todos;
+        vm.todo = {title:null, detail:null, date:null, status:null, priority:null, index:null};
         vm.photos = DigiService.photos;
         vm.addTodo = addTodo;
         vm.keyup = keyup
@@ -23,18 +22,21 @@
         vm.logout = logout;
 
         $scope.$watch('todos', function () {
-            console.log("hey todo was remove!")
 //          localStorageService.add('todos', vm.todos);
         }, true);
 
-
+        //TODO: need to track index when dragged and dropped
         function addTodo() {
+          console.log(vm.todo)
           if (vm.todo) {
-              $rootScope.todos.push({"priority":"H" ,"status":"P" ,"detail": vm.todo});
+              $rootScope.todos.push({priority:"H" ,status:"P" ,detail: vm.todo.detail, title: vm.todo.title, index: 1});
               //TODO: have todo view toggle set the priority and status
-              DigiService.post_todo(vm.todo, "H", "P", $rootScope.project_id)
+              DigiService.post_todo(vm.todo, $rootScope.project_id)
               vm.todo = '';
-              angular.element(document).find('.todo-input').removeClass('is-dirty')
+              // Hack
+              var a = document.querySelectorAll('.todo-input')
+              console.log(a)
+              angular.element(a[0]).removeClass('is-focused')
           }
         };
 

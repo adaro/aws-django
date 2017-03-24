@@ -1,8 +1,10 @@
+/venv
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+/django_eb/django_eb/media
 venv
 *.pyc
 *.bower.json

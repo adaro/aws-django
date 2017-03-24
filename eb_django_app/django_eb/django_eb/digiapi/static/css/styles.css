@@ -777,3 +777,11 @@ body .demo-blog {
 .project-image {
     height:300px;
 }
+
+.add-todo-btn {
+    z-index: 1;
+}
+
+.todo-form {
+    position:absolute;
+}

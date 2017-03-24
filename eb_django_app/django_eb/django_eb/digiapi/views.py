@@ -1,84 +1,74 @@
-from django.http import JsonResponse, HttpResponseForbidden
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
+from django.views.generic import View
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from models import Project, Todo, Photo
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from utils import generate_token, send_file
+from utils import generate_token
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from auth import authenticate_digi_user, logout_digi_user
 from django.shortcuts import redirect
 import json
 from forms import ProjectForm, PhotoForm, TodoForm, DeleteTodoForm
-from django.core import serializers
 
-@csrf_exempt
-def login(request):
-    # handle any POST login attempts, authenticate user and render login view
-    if request.method == "POST":
+
+class LoginView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
         data = json.loads(request.body)
         is_valid = authenticate_digi_user(data.get('username', None), data.get('password', None))
         if is_valid:
             token = generate_token()
             return JsonResponse({"token": token})
         else:
-            return JsonResponse({"login_error": settings.LOGIN_ERROR_MSG})
+            return redirect('%s?next=%s' % ("/api/logout", "/"))
 
 
-    # redirected to logout view if GET request
-    print "not auth'd rendering logout view"
-    return redirect('%s?next=%s' % ("/api/logout", "/"))
+class LogoutView(View):
 
-@csrf_exempt
-def logout(request):
-    # render index with logout view
-    logout_digi_user(request)
-    return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LogoutView, self).dispatch(request, *args, **kwargs)
 
-@csrf_exempt
-def index(request):
-
-    # check is user is authenticated and render index else redirect to login view
-    if request.user.is_authenticated():
+    def post(self, request):
+        # render index with logout view
+        logout_digi_user(request)
         return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
-    else:
-        return redirect('%s?next=%s' % ("api/login", request.path))
 
 
-@csrf_exempt
-def get_projects(request):
-    data = serializers.serialize('json', Project.objects.all(), use_natural_foreign_keys=True)
-    return HttpResponse(data)
+class IndexView(View):
+    def get(self, request):
+        # check is user is authenticated and render index else redirect to login view
+        if request.user.is_authenticated():
+            return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
+        else:
+            return redirect('%s?next=%s' % ("api/login", request.path))
 
-@csrf_exempt
-def get_project(request, project_id):
-    data = serializers.serialize('json', Project.objects.filter(id=project_id), use_natural_foreign_keys=True)
-    return HttpResponse(data)
+class ProjectsView(View):
+    @staticmethod
+    def get(self):
+        project = Project()
+        return project.get_projects()
 
-@csrf_exempt
-def get_media(request, project_id):
-    print project_id
-    project = Project.objects.get(id=project_id)
-    print project.poster
-    img = open(str(project.poster), 'r')
-    return send_file(img)
+class ProjectView(View):
 
-#TODO: serialize these into the Project model
-# @csrf_exempt
-# def get_photos(request, project_id):
-#     all = Photo.objects.all()
-#     for i in all:
-#         print i.image
-#     data = serializers.serialize('json', Photo.objects.filter(related_project_id=project_id))
-#     return HttpResponse(data)
+    form_class = ProjectForm
+    template_name = 'index.html'
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectView, self).dispatch(request, *args, **kwargs)
 
-#TODO: create update_poject views, one for updating adding todos  along with a view or editing project
+    def get(self, request, project_id):
+        project = Project()
+        return project.get_project(project_id)
 
-@csrf_exempt
-def post_project(request):
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, request.FILES)
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             m = Project()
             m.project_id = form.cleaned_data['projectid']
@@ -89,39 +79,81 @@ def post_project(request):
             m.project_type = 1
             m.poster = form.cleaned_data['poster']
             m.save()
-            #TODO: dont redirect here send through ajax
-            return render(request, 'index.html', {'STATIC_URL': settings.STATIC_URL})
+            #TODO: dont render here send through ajax
+            return render(request, self.template_name, {'STATIC_URL': settings.STATIC_URL})
         print form.errors
 
-@csrf_exempt
-def post_todo(request, project_id):
-    if request.method == 'POST':
-        form = TodoForm(request.POST)
+class MediaView(View):
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MediaView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, project_id):
+        project = Project()
+        return project.get_media(project_id)
+
+
+
+#TODO: serialize these into the Photo model
+# @csrf_exempt
+# def get_photos(request, project_id):
+#     all = Photo.objects.all()
+#     for i in all:
+#         print i.image
+#     data = serializers.serialize('json', Photo.objects.filter(related_project_id=project_id))
+#     return HttpResponse(data)
+
+
+#TODO: create update_poject views, one for updating adding todos  along with a view or editing projectc
+class TodoView(View):
+
+    form_class = TodoForm
+    delete_form_class = DeleteTodoForm
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(TodoView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, project_id):
+        form = self.form_class(request.POST)
         if form.is_valid():
-
+            title = form.cleaned_data['title']
             detail = form.cleaned_data['detail']
             status = form.cleaned_data['status']
             priority = form.cleaned_data['priority']
-
+            index = form.cleaned_data['index']
+            print index
             p = Project.objects.get(id=project_id)
-            t = Todo.objects.create(detail=detail, status=status, priority=priority)
+            t = Todo.objects.create(title=title, detail=detail, status=status, priority=priority, index=index)
             p.todos.add(t)
             p.save()
-            return JsonResponse({"data": "success"})
+            return HttpResponse({"data": "success"})
         print form.errors
 
-@csrf_exempt
-def delete_todo(request, project_id):
-    if request.method == 'POST':
-        form = DeleteTodoForm(request.POST)
-        if form.is_valid():
-            detail = form.cleaned_data['todo']
-            todo = Todo.objects.get(detail=detail)
-            p = Project.objects.get(id=project_id)
-            result = p.todos.remove(todo)
-            #TODO: add check here for reult
-            return HttpResponse("success")
+    def delete(self, request, project_id):
+        print dir(request)
+        # form = self.delete_form_class(request.POST)
+        # if form.is_valid():
+        #     detail = form.cleaned_data['todo']
+        #     print detail
+        #     todo = Todo.objects.get(detail=detail)
+        #     p = Project.objects.get(id=project_id)
+        #     result = p.todos.remove(todo)
+        #     #TODO: add check here for reult
+        #     return HttpResponse("success")
+
+# @csrf_exempt
+# def delete_todo(request, project_id):
+#     if request.method == 'POST':
+#         form = DeleteTodoForm(request.POST)
+#         if form.is_valid():
+#             detail = form.cleaned_data['todo']
+#             todo = Todo.objects.get(detail=detail)
+#             p = Project.objects.get(id=project_id)
+#             result = p.todos.remove(todo)
+#             #TODO: add check here for reult
+#             return HttpResponse("success")
 
 @csrf_exempt
 def post_photo(request, project_id):

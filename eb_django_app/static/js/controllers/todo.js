@@ -13,7 +13,6 @@
         var todosInStore = localStorageService.get('todos');
         var utils = UtilsService; // TODO: put this on $scope eventually when we add it to the view
         $rootScope.todos = DigiService.todos; // TODO: this is a nice local storage option leaving it in here :) //todosInStore || [];
-        console.log($rootScope.todos)
         vm.todo = '';
         vm.photos = DigiService.photos;
         vm.addTodo = addTodo;
@@ -23,7 +22,6 @@
         vm.logout = logout;
 
         $scope.$watch('todos', function () {
-            console.log("hey todo was remove!")
 //          localStorageService.add('todos', vm.todos);
         }, true);
 

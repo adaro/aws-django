@@ -18,9 +18,11 @@ class ProjectForm(forms.Form):
 
 
 class TodoForm(forms.Form):
+    title = forms.CharField(label='Title', required=False)
     detail = forms.CharField(label='Detail', required=False)
     status = forms.CharField(label='Status', required=False)
     priority = forms.CharField(label='Priority', required=False)
+    index = forms.IntegerField(label='Index', required=False)
 
 
 class DeleteTodoForm(forms.Form):
