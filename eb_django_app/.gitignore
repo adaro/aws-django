@@ -11,4 +11,4 @@
 venv
 *.pyc
 *.bower.json
-.DS_Store
+/.DS_Store
