@@ -7,6 +7,7 @@
 /eb_django_app/venv/*
 *.pyc
 *.bower.json
+/npm-debug.log
 /eb_django_app/.DS_Store
 /eb_django_app/awscli-bundle.zip
 /eb_django_app/awscli-bundle
