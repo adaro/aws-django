@@ -2,49 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92361bcb-e849-4c9e-86e9-8d8fd245503e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/db.sqlite3" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0002_auto_20160124_2118.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0003_project_poster.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0004_auto_20160131_1751.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0005_auto_20160201_1818.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0006_auto_20160201_2050.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0007_auto_20160202_2035.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0008_auto_20160202_2045.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0009_auto_20160202_2143.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0010_auto_20160203_1942.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0011_auto_20160203_2007.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0012_auto_20160203_2011.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0013_photo_related_project_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0014_auto_20160203_2216.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0015_auto_20160213_1826.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0016_auto_20160213_1828.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0017_auto_20160213_1850.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0018_auto_20160213_2053.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0019_auto_20160213_2053.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0020_auto_20160213_2301.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0021_auto_20160724_1814.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0022_auto_20160724_1821.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0023_auto_20160724_1838.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0024_auto_20160724_2002.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0025_auto_20160725_1133.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/migrations/0026_auto_20160725_1158.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/media/photo/IMG_1007.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/media/photo/IMG_1009.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/eb_django_app/static/imgdigiboard/IMG_1041.JPG" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/.gitignore" afterPath="$PROJECT_DIR$/eb_django_app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/aws-django.iml" afterPath="$PROJECT_DIR$/.idea/aws-django.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/forms.py" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/models.py" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/static/js/controllers/project.js" afterPath="$PROJECT_DIR$/eb_django_app/static/js/controllers/project.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/js/services/service.api.js" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/js/services/service.api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/css/styles.css" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/views/todo.html" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/views/todo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/js/controllers/todo.js" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/static/js/controllers/todo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/static/js/controllers/todo.js" afterPath="$PROJECT_DIR$/eb_django_app/static/js/controllers/todo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/urls.py" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/views.py" afterPath="$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="aws-django.iws" />
@@ -69,7 +26,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="1605" max-vertical-offset="2625">
@@ -77,6 +34,16 @@
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.32397407" vertical-offset="0" max-vertical-offset="463">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -439,7 +406,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40985578" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40985578" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -866,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32397407" vertical-offset="0" max-vertical-offset="463">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/eb_django_app/django_eb/django_eb/digiapi/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1605" max-vertical-offset="2625">
@@ -881,6 +840,14 @@
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32397407" vertical-offset="0" max-vertical-offset="463">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
