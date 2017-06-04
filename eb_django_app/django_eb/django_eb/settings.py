@@ -33,7 +33,7 @@ STATIC_ROOT = BASE_DIR + '/eb_django_app/static/img/'
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'khpyu_&$f^&o3pbs-!$%9%-b-4v64)7h1z3f*iv)y-$r_9st$p'
+SECRET_KEY = '<secrete key here>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
